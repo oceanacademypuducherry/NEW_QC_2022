@@ -22,7 +22,7 @@ class SmokeTimer extends StatelessWidget {
           String quitDate = timerData.collectedData['quiteDate'];
           return Column(
             children: [
-              const Text('Your journey will start at')
+              const Text('Your Journey will start at')
                   .text
                   .white
                   .size(15)
