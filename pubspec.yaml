@@ -41,6 +41,7 @@ dependencies:
   rive: ^0.9.1
   velocity_x: ^3.5.1
   font_awesome_flutter: ^10.2.1
+  flutter_inset_box_shadow: ^1.0.8
 
 
 dev_dependencies:
@@ -70,6 +71,7 @@ flutter:
     - assets/images/
     - assets/images/oauth/
     - assets/images/dashboard/
+    - assets/images/haw/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -93,6 +95,14 @@ flutter:
       fonts:
         - asset: assets/fonts/Ubuntu/Ubuntu-Regular.ttf
         - asset: assets/fonts/Ubuntu/Ubuntu-Bold.ttf
+
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat/Montserrat-Regular.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Bold.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
+        - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
 
   #
   # For details regarding fonts from package dependencies,

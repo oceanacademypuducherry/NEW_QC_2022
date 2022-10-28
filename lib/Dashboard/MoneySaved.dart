@@ -11,7 +11,7 @@ class MoneySaved extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.white.withOpacity(0.3),
+      color: QCDashColor.odd,
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -8,13 +8,17 @@ class HealthAndWellness extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: Color(0xffF8FCFF),
       child: Column(
         children: [
+          const SizedBox(
+            height: 20,
+          ),
           DashboardTitle(
             title: 'HealthAndWellness',
           ),
           const SizedBox(
-            height: 10,
+            height: 15,
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -22,23 +26,30 @@ class HealthAndWellness extends StatelessWidget {
               children: [
                 WellnessCard(
                   title: "Yoga",
-                  child: Image.asset('assets/images/dashboard/boy.png'),
+                  path: 'assets/images/haw/yoga.png',
                 ),
                 WellnessCard(
                   title: "Affirmation ",
-                  child: Image.asset('assets/images/dashboard/boy.png'),
+                  path: 'assets/images/haw/af.png',
                 ),
                 WellnessCard(
                   title: "Breath",
-                  child: Image.asset('assets/images/dashboard/boy.png'),
+                  path: 'assets/images/haw/br.png',
                 ),
                 WellnessCard(
                   title: "Health Tips",
-                  child: Image.asset('assets/images/dashboard/boy.png'),
+                  path: 'assets/images/haw/ht.png',
+                ),
+                WellnessCard(
+                  title: "Wisdom",
+                  path: 'assets/images/haw/wi.png',
                 ),
               ],
             ),
-          )
+          ),
+          const SizedBox(
+            height: 20,
+          ),
         ],
       ),
     );
@@ -46,9 +57,10 @@ class HealthAndWellness extends StatelessWidget {
 }
 
 class WellnessCard extends StatelessWidget {
-  WellnessCard({Key? key, this.title = "Title", this.child}) : super(key: key);
+  WellnessCard({Key? key, this.title = "Title", this.path}) : super(key: key);
   String title;
-  Widget? child;
+  String? path;
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -63,7 +75,15 @@ class WellnessCard extends StatelessWidget {
             decoration: BoxDecoration(
                 color: QCHealthAndWellness.blueBg,
                 borderRadius: BorderRadius.circular(10)),
-            child: child ?? SizedBox(),
+            child: path != null
+                ? Image.asset(
+                    path!,
+                    color: QCHealthAndWellness.blueBg,
+                    colorBlendMode: BlendMode.multiply,
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.contain,
+                  )
+                : SizedBox(),
           ),
           const SizedBox(
             height: 10,

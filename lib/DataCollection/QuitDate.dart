@@ -15,6 +15,7 @@ class QuitDatePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackgroundContainer(
+        isDashboard: false,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
+import 'package:new_qc/Dashboard/HealthImprovementCollection/HealthImprovementBigCard.dart';
 import 'package:new_qc/Dashboard/HealthImprovementCollection/HealthImprovementCards.dart';
+import 'package:new_qc/Dashboard/HealthImprovementCollection/HealthImprovementView.dart';
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
 
 class HealthImprovement extends StatefulWidget {
@@ -18,14 +20,16 @@ class _HealthImprovementState extends State<HealthImprovement> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.white.withOpacity(0.5),
+      color: QCDashColor.even,
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
             onTap: () {
-              Get.to(() => HealthImprovementCards(),
+              Get.to(() => HealthImprovementView(),
+
+                  // HealthImprovementCards(),
                   transition: Transition.cupertino);
             },
             child: DashboardTitle(
@@ -36,28 +40,19 @@ class _HealthImprovementState extends State<HealthImprovement> {
             height: 20,
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              HealthImporovementItem(
-                imagePath: "assets/images/dashboard/heart.png",
-                title: "Pulse Rate",
-                color: QCHealthColors.pulseRate,
-              ),
-              HealthImporovementItem(
-                imagePath: "assets/images/dashboard/oxygen.png",
-                title: "Oxygen Level",
-                color: QCHealthColors.oxygen,
-              ),
-              HealthImporovementItem(
-                imagePath: "assets/images/dashboard/carbon.png",
-                title: "Pulse Rate",
-                color: QCHealthColors.carbon,
-              )
-            ],
-          ),
-          Row(
-            children: [],
-          )
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: List.generate(
+                  userStatus.healthWidget.length >= 3
+                      ? 3
+                      : userStatus.healthWidget.length, (index) {
+                Map data = userStatus.healthWidget[index];
+                return HealthImporovementItem(
+                  imagePath: data['imagePath'],
+                  title: data['title'],
+                  colorData: data['colorData'],
+                );
+              }))
         ],
       ),
     );
@@ -69,14 +64,15 @@ class HealthImporovementItem extends StatelessWidget {
       {Key? key,
       this.imagePath,
       this.title = "Title",
-      this.color = Colors.grey})
+      this.colorData = "0xff717171"})
       : super(key: key);
   String? imagePath;
   String title;
-  Color color;
+  String colorData;
 
   @override
   Widget build(BuildContext context) {
+    Color color = Color(int.parse(colorData));
     return Container(
       width: MediaQuery.of(context).size.width / 3.5,
       child: Column(
@@ -96,7 +92,10 @@ class HealthImporovementItem extends StatelessWidget {
           Text(
             title,
             style: TextStyle(
-                color: color, fontSize: MediaQuery.of(context).size.width / 25),
+              color: color,
+              fontSize: MediaQuery.of(context).size.width / 25,
+            ),
+            textAlign: TextAlign.center,
           )
         ],
       ),

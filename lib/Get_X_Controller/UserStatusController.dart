@@ -143,6 +143,8 @@ class UserStatusController extends GetxController {
         'totalMinutesOrDays': totalMinutes,
         'isFinish': 20 < totalMinutes,
         'description': '20 Minutes',
+        "colorData": "0xffF8889C",
+        "imagePath": "assets/images/dashboard/heart.png",
       },
       {
         'title': 'Oxygen Level',
@@ -150,83 +152,108 @@ class UserStatusController extends GetxController {
         'totalMinutesOrDays': totalMinutes,
         'isFinish': 480 < totalMinutes,
         'description': '8 Hours',
+        "colorData": "0xff01CFFF",
+        "imagePath": "assets/images/dashboard/oxygen.png",
       },
       {
         'title': 'Carbon monoxide level',
         'calculationTime': 1440,
         'totalMinutesOrDays': totalMinutes,
         'isFinish': 1440 < totalMinutes,
-        'description': '24 Hours'
+        'description': '24 Hours',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Nicotine expelled from body',
         'calculationTime': 2520,
         'totalMinutesOrDays': totalMinutes,
         'isFinish': 2520 < totalMinutes,
-        'description': '42 Hours'
+        'description': '42 Hours',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Taste and smell',
         'calculationTime': 14400,
         'totalMinutesOrDays': totalMinutes,
         'isFinish': 14400 < totalMinutes,
-        'description': '10 Days'
+        'description': '10 Days',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Breathing',
         'calculationTime': 120960,
         'totalMinutesOrDays': totalMinutes,
         'isFinish': 120960 < totalMinutes,
-        'description': '12 Weeks'
+        'description': '12 Weeks',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Energy levels',
         'calculationTime': 273,
         'totalMinutesOrDays': totalDays,
         'isFinish': 273 < totalDays,
-        'description': '9 Months'
+        'description': '9 Months',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Bed Breath',
         'calculationTime': 365,
         'totalMinutesOrDays': totalDays,
         'isFinish': 365 < totalDays,
-        'description': '1 Years'
+        'description': '1 Years',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Tooth Stationing',
         'calculationTime': 1825,
         'totalMinutesOrDays': totalDays,
         'isFinish': 1825 < totalDays,
-        'description': '5 Years'
+        'description': '5 Years',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Cums and Teeth',
         'calculationTime': 3650,
         'totalMinutesOrDays': totalDays,
         'isFinish': 3650 < totalDays,
-        'description': '10 Years'
+        'description': '10 Years',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Circulation',
         'calculationTime': 5475,
         'totalMinutesOrDays': totalDays,
         'isFinish': 5475 < totalDays,
-        'description': '15 Years'
+        'description': '15 Years',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
       {
         'title': 'Gum texture',
         'calculationTime': 7300,
         'totalMinutesOrDays': totalDays,
         'isFinish': 7300 < totalDays,
-        'description': '20 Years'
+        'description': '20 Years',
+        "colorData": "0xff717171",
+        "imagePath": "assets/images/dashboard/carbon.png",
       },
     ];
 
     healthImprovements(healthData);
+    healthState();
   }
 
-  List<Map> healthState() {
+  final healthWidget = [].obs;
+
+  void healthState() {
     List<Map> count = [];
     for (int i = 0; i < healthImprovements.length; i++) {
       Map data = healthImprovements[i];
@@ -234,9 +261,11 @@ class UserStatusController extends GetxController {
         dynamic progres =
             ((data['totalMinutesOrDays'] * 100) / data['calculationTime']);
         data['progress'] = progres;
+        count.add(data);
       }
     }
-    return count;
+
+    healthWidget(count);
   }
 
   //ToDO:money saved

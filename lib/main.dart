@@ -26,7 +26,7 @@ class MainRun extends StatelessWidget {
     print('&&&&&&&&&&&&&&&');
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'Ubuntu'),
+      theme: ThemeData(fontFamily: 'Montserrat'),
       home: storage.read('isLogged') != null
           ? storage.read('isLogged')
               ? Dashboard()

@@ -43,13 +43,18 @@ class ReasonQuit extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BackgroundContainer(
+        isDashboard: false,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                child: Image.asset('assets/images/family.png'),
+                child: Image.asset(
+                  'assets/images/family.png',
+                  colorBlendMode: BlendMode.multiply,
+                  filterQuality: FilterQuality.high,
+                ),
               ),
               Column(
                 children: [

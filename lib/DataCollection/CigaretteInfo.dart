@@ -25,6 +25,7 @@ class CigaretteInfo extends StatelessWidget {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       body: BackgroundContainer(
+        isDashboard: false,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15),
           child: SingleChildScrollView(

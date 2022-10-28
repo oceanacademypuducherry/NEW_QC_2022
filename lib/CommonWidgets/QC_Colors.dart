@@ -10,6 +10,11 @@ class QCColors {
   static Color chipText = Color(0xff899E97);
 }
 
+class QCDashColor {
+  static Color odd = Color(0xffE9F8FF);
+  static Color even = Color(0xffD8F1FF);
+}
+
 class QCHealthColors {
   static Color pulseRate = Color(0xffF8889C);
   static Color oxygen = Color(0xff01CFFF);

@@ -45,19 +45,8 @@ class _DashboardState extends State<Dashboard> {
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            userStatus.stopTimer(runTimer: false);
-
-            storage.remove('isLogged');
-
-            ///storage.remove('collectedData');
-
-            Get.to(() => Login());
-          },
-          child: Icon(Icons.logout),
-        ),
         body: BackgroundContainer(
+          isDashboard: true,
           bg: Image.asset(
             'assets/images/ocean.jpg',
             fit: BoxFit.cover,
