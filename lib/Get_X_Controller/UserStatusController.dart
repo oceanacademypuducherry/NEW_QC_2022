@@ -270,7 +270,7 @@ class UserStatusController extends GetxController {
 
   //ToDO:money saved
 
-  num moneyViewer(collectedData, {type: 1}) {
+  num moneyViewer({type: 1}) {
     Map mc = collectedData['cigaretteInfo'];
 
     num savedMoney =

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/BackButton.dart';
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
@@ -16,15 +17,12 @@ class SmokeFreeTimeView extends StatelessWidget {
       child: Stack(
         children: [
           Container(),
-          Positioned(
-            right: -70,
-            bottom: 10,
-            child: Image.asset(
-              'assets/images/hill.png',
-              fit: BoxFit.cover,
-              height: 500,
-            ),
-          ),
+          const Positioned(
+              right: -80,
+              bottom: -160,
+              child: Image(
+                image: Svg('assets/images/hill.svg', size: Size(800, 800)),
+              )),
           Positioned(
             top: 20,
             right: 20,
@@ -56,14 +54,14 @@ class SmokeFreeTimeView extends StatelessWidget {
         children: [
           Text(
             "$time",
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w500,
                 color: Color(0xff81BAEE)),
           ),
           Text(
             userstatus.smokeFreeTime["$time"].toString(),
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w500,
                 color: Color(0xff81BAEE)),

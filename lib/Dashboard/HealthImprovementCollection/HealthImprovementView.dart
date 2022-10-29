@@ -16,7 +16,7 @@ class HealthImprovementView extends StatelessWidget {
     return Scaffold(
       body: BackgroundContainer(
           isDashboard: false,
-          backButon: true,
+          backButton: true,
           child: Container(
             width: context.screenWidth,
             color: QCDashColor.odd,

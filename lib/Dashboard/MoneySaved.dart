@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
@@ -32,7 +33,9 @@ class MoneySaved extends StatelessWidget {
             child: Row(
               children: [
                 MoneyCard(
-                  clipArt: Image.asset('assets/images/dashboard/cash.png'),
+                  clipArt:
+                      Image(image: Svg('assets/images/dashboard/cash.svg')),
+                  // clipArt: Image.asset('assets/images/dashboard/cash.png'),
                   title: "total Savings",
                   amount: 1500,
                   color: QCMoneyColor.totalSaving,

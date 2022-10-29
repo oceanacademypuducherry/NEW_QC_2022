@@ -6,6 +6,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:new_qc/CommonWidgets/BackButton.dart';
 import 'package:new_qc/DataCollection/Login.dart';
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class BackgroundContainer extends StatelessWidget {
   BackgroundContainer(
@@ -13,8 +14,10 @@ class BackgroundContainer extends StatelessWidget {
       required this.child,
       this.bg,
       this.transparentOpacity = 0.4,
+      this.backButtonChild,
       this.isDashboard = false,
-      this.backButon = false})
+      this.backButton = false,
+      this.action})
       : super(key: key);
 
   Widget child;
@@ -23,7 +26,9 @@ class BackgroundContainer extends StatelessWidget {
   UserStatusController userStatus = Get.find<UserStatusController>();
   GetStorage storage = GetStorage();
   bool isDashboard = false;
-  bool backButon = false;
+  bool backButton = false;
+  Widget? backButtonChild;
+  Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -118,8 +123,24 @@ class BackgroundContainer extends StatelessWidget {
                     ],
                   ),
                 )),
-          if (backButon)
-            const Positioned(top: 30, left: 0, child: QCBackButton())
+          if (backButton)
+            Positioned(
+                top: 30,
+                left: 0,
+                child: SizedBox(
+                  width: context.screenWidth,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      backButtonChild ?? QCBackButton(),
+                      Spacer(),
+                      if (action != null) action!,
+                      SizedBox(
+                        width: 15,
+                      )
+                    ],
+                  ),
+                ))
         ],
       ),
     );

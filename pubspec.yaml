@@ -42,6 +42,7 @@ dependencies:
   velocity_x: ^3.5.1
   font_awesome_flutter: ^10.2.1
   flutter_inset_box_shadow: ^1.0.8
+  flutter_svg_provider: ^1.0.3
 
 
 dev_dependencies:
@@ -103,6 +104,11 @@ flutter:
         - asset: assets/fonts/Montserrat/Montserrat-Light.ttf
         - asset: assets/fonts/Montserrat/Montserrat-Medium.ttf
         - asset: assets/fonts/Montserrat/Montserrat-SemiBold.ttf
+
+    - family: Kalam
+      fonts:
+        - asset: assets/fonts/Kalam-Regular.ttf
+
 
   #
   # For details regarding fonts from package dependencies,
