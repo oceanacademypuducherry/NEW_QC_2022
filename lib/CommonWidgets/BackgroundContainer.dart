@@ -17,6 +17,8 @@ class BackgroundContainer extends StatelessWidget {
       this.backButtonChild,
       this.isDashboard = false,
       this.backButton = false,
+      this.padding,
+      this.title = "",
       this.action})
       : super(key: key);
 
@@ -29,120 +31,125 @@ class BackgroundContainer extends StatelessWidget {
   bool backButton = false;
   Widget? backButtonChild;
   Widget? action;
+  EdgeInsets? padding;
+  String title;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          Container(
-              height: double.infinity,
-              width: double.infinity,
-              child: bg ??
-                  Image.asset(
-                    'assets/images/bg.png',
-                    fit: BoxFit.cover,
-                  )),
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
-            child: Container(
-              color: Colors.white.withOpacity(transparentOpacity),
-            ),
-          ),
-          Container(
+    return Stack(
+      children: [
+        Container(
             height: double.infinity,
             width: double.infinity,
-            child: child,
-          ),
-          if (isDashboard)
-            Positioned(
-                bottom: 0,
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/Bottom_Nav.png',
-                      ),
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        width: MediaQuery.of(context).size.width,
-                        height: 50,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 40,
-                              child: GestureDetector(
-                                onTap: () {
-                                  print('home');
-                                },
-                              ),
-                            ),
-                            Container(
-                              width: 40,
-                              child: GestureDetector(
-                                onTap: () {
-                                  print('missions');
-                                },
-                              ),
-                            ),
-                            Container(
-                              width: 40,
-                              child: GestureDetector(
-                                onTap: () {
-                                  print('journal');
-                                },
-                              ),
-                            ),
-                            Container(
-                              width: 40,
-                              child: GestureDetector(
-                                onTap: () {
-                                  print('cravings');
-                                },
-                              ),
-                            ),
-                            Container(
-                                width: 40,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    userStatus.stopTimer(runTimer: false);
-
-                                    storage.remove('isLogged');
-
-                                    ///storage.remove('collectedData');
-
-                                    Get.to(() => Login());
-                                  },
-                                )),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
+            child: bg ??
+                Image.asset(
+                  'assets/images/bg.png',
+                  fit: BoxFit.cover,
                 )),
-          if (backButton)
-            Positioned(
-                top: 30,
-                left: 0,
-                child: SizedBox(
-                  width: context.screenWidth,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      backButtonChild ?? QCBackButton(),
-                      Spacer(),
-                      if (action != null) action!,
-                      SizedBox(
-                        width: 15,
-                      )
-                    ],
-                  ),
-                ))
-        ],
-      ),
+        BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
+          child: Container(
+            color: Colors.white.withOpacity(transparentOpacity),
+          ),
+        ),
+        Container(
+          padding: padding,
+          width: double.infinity,
+          child: child,
+        ),
+        if (isDashboard)
+          Positioned(
+              bottom: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/Bottom_Nav.png',
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      width: MediaQuery.of(context).size.width,
+                      height: 50,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 40,
+                            child: GestureDetector(
+                              onTap: () {
+                                print('home');
+                                VxToast.show(context, msg: "Dashboard");
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 40,
+                            child: GestureDetector(
+                              onTap: () {
+                                print('missions');
+                                VxToast.show(context, msg: "missions");
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 40,
+                            child: GestureDetector(
+                              onTap: () {
+                                print('journal');
+                                VxToast.show(context, msg: "journal");
+                              },
+                            ),
+                          ),
+                          Container(
+                            width: 40,
+                            child: GestureDetector(
+                              onTap: () {
+                                print('cravings');
+                                VxToast.show(context, msg: "cravings");
+                              },
+                            ),
+                          ),
+                          Container(
+                              width: 40,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  userStatus.stopTimer(runTimer: false);
+
+                                  storage.remove('isLogged');
+
+                                  ///storage.remove('collectedData');
+
+                                  // Get.to(() => Login());
+                                },
+                              )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              )),
+        if (backButton)
+          Positioned(
+              top: 30,
+              left: 0,
+              child: Container(
+                width: context.screenWidth - 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    backButtonChild ?? QCBackButton(),
+                    title.text
+                        .size(20)
+                        .fontWeight(FontWeight.w500)
+                        .color(Vx.gray600)
+                        .make(),
+                    if (action != null) action!,
+                  ],
+                ),
+              ))
+      ],
     );
   }
 }

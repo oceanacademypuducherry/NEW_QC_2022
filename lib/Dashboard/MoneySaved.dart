@@ -4,10 +4,12 @@ import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Dashboard/MoneySavedCollection/MoneySavedInfo.dart';
+import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MoneySaved extends StatelessWidget {
-  const MoneySaved({Key? key}) : super(key: key);
+  MoneySaved({Key? key}) : super(key: key);
+  UserStatusController _userState = Get.find<UserStatusController>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +39,17 @@ class MoneySaved extends StatelessWidget {
                       Image(image: Svg('assets/images/dashboard/cash.svg')),
                   // clipArt: Image.asset('assets/images/dashboard/cash.png'),
                   title: "total Savings",
-                  amount: 1500,
+                  amount: double.parse(_userState
+                      .moneyViewer(type: _userState.totalSmokeFreeTime['days'])
+                      .toString()),
                   color: QCMoneyColor.totalSaving,
                   bgColor: QCMoneyColor.totalSavingBg,
                 ),
                 MoneyCard(
                   clipArt: Image.asset('assets/images/dashboard/coin.png'),
                   title: "Weekly Savings",
-                  amount: 300,
+                  amount:
+                      double.parse(_userState.moneyViewer(type: 7).toString()),
                   color: QCMoneyColor.weeklySaving,
                   bgColor: QCMoneyColor.weeklySavingBg,
                 ),
@@ -97,17 +102,15 @@ class MoneyCard extends StatelessWidget {
                   title,
                   style: TextStyle(color: color ?? Colors.grey[200]),
                 ),
-                SizedBox(
-                  height: 8,
-                ),
+                const SizedBox(height: 8),
                 Container(height: 60, child: clipArt ?? const SizedBox()),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               width: 25,
             ),
             Text(
-              money(amount).toString(),
+              "₹${money(amount).toString()}",
               style: TextStyle(fontSize: 25, color: color ?? Colors.grey[400]),
             )
           ],

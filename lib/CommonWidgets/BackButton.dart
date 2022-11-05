@@ -4,9 +4,10 @@ import 'package:get/get.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class QCBackButton extends StatelessWidget {
-  QCBackButton({Key? key, this.color}) : super(key: key);
+  QCBackButton({Key? key, this.color, this.onPressed}) : super(key: key);
 
   Color? color;
+  VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,10 @@ class QCBackButton extends StatelessWidget {
         color: color ?? Colors.black38,
         iconSize: 25,
         splashRadius: 25,
-        onPressed: () {
-          Get.back();
-        },
+        onPressed: onPressed ??
+            () {
+              Get.back();
+            },
       ),
     );
   }

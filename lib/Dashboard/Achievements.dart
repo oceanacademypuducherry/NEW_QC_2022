@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
@@ -39,11 +40,45 @@ class Achievements extends StatelessWidget {
             // )
 
             Container(
-                decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.8),
-                    borderRadius: BorderRadius.circular(10)),
-                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-                child: Image.asset('assets/images/achi.png')),
+              width: context.screenWidth / 1.3,
+              height: context.screenWidth / 2.3,
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.8),
+                  borderRadius: BorderRadius.circular(10)),
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+              child: Stack(
+                alignment: Alignment.center,
+                children: const [
+                  Positioned(
+                    left: -170,
+                    top: -80,
+                    child: Opacity(
+                      opacity: 0.5,
+                      child: Image(
+                        image: Svg('assets/images/paper.svg',
+                            size: Size(200, 200)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                  Image(
+                      image: Svg('assets/images/dashboard/cup_group.svg',
+                          size: Size(120, 120))),
+                  Positioned(
+                    right: -0,
+                    bottom: 0,
+                    child: Opacity(
+                      opacity: 0.5,
+                      child: Image(
+                        image: Svg('assets/images/paper.svg',
+                            size: Size(200, 200)),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

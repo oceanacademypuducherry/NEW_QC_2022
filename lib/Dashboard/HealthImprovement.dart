@@ -39,7 +39,7 @@ class _HealthImprovementState extends State<HealthImprovement> {
           const SizedBox(
             height: 20,
           ),
-          Row(
+          Obx(() => Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: List.generate(
@@ -52,7 +52,7 @@ class _HealthImprovementState extends State<HealthImprovement> {
                   title: data['title'],
                   colorData: data['colorData'],
                 );
-              }))
+              })))
         ],
       ),
     );

@@ -42,76 +42,80 @@ class ReasonQuit extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BackgroundContainer(
-        isDashboard: false,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                child: Image.asset(
-                  'assets/images/family.png',
-                  colorBlendMode: BlendMode.multiply,
-                  filterQuality: FilterQuality.high,
-                ),
-              ),
-              Column(
-                children: [
-                  DataCollectionTitle(
-                    title: "Reason for Quit?",
-                    subtitle: "Choose your personal motives here",
-                    hasSubtitle: true,
+      body: SafeArea(
+        child: BackgroundContainer(
+          isDashboard: false,
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Image.asset(
+                    'assets/images/family.png',
+                    colorBlendMode: BlendMode.multiply,
+                    filterQuality: FilterQuality.high,
                   ),
-                  Wrap(
-                    children: [...reasonsChips()],
-                  )
-                ],
-              ),
-              Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  NextButton(
-                    color: Colors.white38,
-                    isBorder: false,
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                    onPressed: () async {
-                      //TODO: getx Storage
+                ),
+                Column(
+                  children: [
+                    DataCollectionTitle(
+                      title: "Reason for Quit?",
+                      subtitle: "Choose your personal motives here",
+                      hasSubtitle: true,
+                    ),
+                    Wrap(
+                      children: [...reasonsChips()],
+                    )
+                  ],
+                ),
+                Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    NextButton(
+                      color: Colors.white38,
+                      isBorder: false,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                      onPressed: () async {
+                        //TODO: getx Storage
 
-                      _dcc.addReasonList(QCChip.reasonList);
+                        _dcc.addReasonList(QCChip.reasonList);
 
-                      print('==========');
-                      Map collectedData = {
-                        "userInfo": _dcc.userInfo.value,
-                        "cigaretteInfo": _dcc.cigaretteInfo.value,
-                        "quiteDate": _dcc.quiteDate.value,
-                        "reasonList": _dcc.reasonList.value
-                      };
+                        print('==========');
+                        Map collectedData = {
+                          "userInfo": _dcc.userInfo.value,
+                          "cigaretteInfo": _dcc.cigaretteInfo.value,
+                          "quiteDate": _dcc.quiteDate.value,
+                          "reasonList": _dcc.reasonList.value
+                        };
 
-                      await storage.write('collectedData', collectedData);
-                      await storage.write("isLogged", true);
+                        await storage.write('collectedData', collectedData);
+                        await storage.write("isLogged", true);
 
-                      print('==========');
-                      userStatus.stopTimer(runTimer: true);
-                      userStatus.readSessionData();
-                      Get.to(() => Dashboard(),
-                          transition: Transition.rightToLeft,
-                          curve: Curves.easeInOut);
-                    },
-                    child: Text(
-                      'Next',
-                      style: TextStyle(
-                        color: QCColors.inputTextColor,
-                        fontSize: MediaQuery.of(context).size.width / 20,
-                        fontWeight: FontWeight.bold,
+                        print('==========');
+                        userStatus.stopTimer(runTimer: true);
+                        userStatus.readSessionData();
+                        Get.to(() => Dashboard(),
+                            transition: Transition.rightToLeft,
+                            curve: Curves.easeInOut);
+                      },
+                      child: Text(
+                        'Next',
+                        style: TextStyle(
+                          color: QCColors.inputTextColor,
+                          fontSize: MediaQuery.of(context).size.width / 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              )
-            ],
+                  ],
+                ),
+                SizedBox(height: 25)
+              ],
+            ),
           ),
         ),
       ),

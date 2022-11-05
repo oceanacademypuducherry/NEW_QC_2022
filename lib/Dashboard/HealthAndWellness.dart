@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Dashboard/HealthAndWellness/Affirmation.dart';
+import 'package:new_qc/Dashboard/HealthAndWellness/BreathCards.dart';
 import 'package:new_qc/Dashboard/HealthAndWellness/WisdomView.dart';
+import 'package:new_qc/Dashboard/HealthAndWellness/YogaTypes.dart';
 
 class HealthAndWellness extends StatelessWidget {
   const HealthAndWellness({Key? key}) : super(key: key);
@@ -30,6 +32,9 @@ class HealthAndWellness extends StatelessWidget {
                 WellnessCard(
                   title: "Yoga",
                   path: 'assets/images/haw/yoga.png',
+                  onPressed: () {
+                    Get.to(YogaTypes(), transition: Transition.cupertino);
+                  },
                 ),
                 WellnessCard(
                   title: "Affirmation ",
@@ -41,6 +46,9 @@ class HealthAndWellness extends StatelessWidget {
                 WellnessCard(
                   title: "Breath",
                   path: 'assets/images/haw/br.png',
+                  onPressed: () {
+                    Get.to(BreathCards(), transition: Transition.cupertino);
+                  },
                 ),
                 WellnessCard(
                   title: "Health Tips",

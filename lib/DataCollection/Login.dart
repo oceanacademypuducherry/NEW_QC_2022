@@ -47,7 +47,6 @@ class _LoginState extends State<Login> {
         child: BackgroundContainer(
             isDashboard: false,
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 0),
               child: SingleChildScrollView(
                 controller: scrollController,
                 child: Column(
@@ -59,6 +58,7 @@ class _LoginState extends State<Login> {
                           Expanded(
                             flex: 10,
                             child: Container(
+                              padding: const EdgeInsets.only(top: 30),
                               child: Image.asset(
                                 'assets/images/hill.png',
                                 fit: BoxFit.contain,
