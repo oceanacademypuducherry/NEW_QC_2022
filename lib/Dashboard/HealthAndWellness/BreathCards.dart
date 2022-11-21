@@ -95,6 +95,7 @@ class BreathCard extends StatelessWidget {
             BreathPlayer(
               color: color,
               title: title,
+              srcPath: "assets/Rive/box_breath.riv",
             ),
             transition: Transition.cupertino);
       },

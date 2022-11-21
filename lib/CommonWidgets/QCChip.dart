@@ -20,10 +20,8 @@ class _QCChipState extends State<QCChip> {
       onTap: () {
         setState(() {
           if (isSelected) {
-            print("removing ${widget.label}");
             QCChip.reasonList.remove(widget.label.toString());
           } else {
-            print("adding  ${widget.label}");
             QCChip.reasonList.add(widget.label.toString());
           }
           isSelected = !isSelected;

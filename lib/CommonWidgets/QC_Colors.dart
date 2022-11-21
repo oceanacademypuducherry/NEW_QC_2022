@@ -8,6 +8,7 @@ class QCColors {
   static Color chipSelectedBorder = Color(0xffC1FBFF);
   static Color chipSelectedBg = Color(0xff51878A);
   static Color chipText = Color(0xff899E97);
+  static Color button = Color(0xff388BC7);
 }
 
 class QCDashColor {

@@ -32,29 +32,30 @@ class MoneySaved extends StatelessWidget {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                MoneyCard(
-                  clipArt:
-                      Image(image: Svg('assets/images/dashboard/cash.svg')),
-                  // clipArt: Image.asset('assets/images/dashboard/cash.png'),
-                  title: "total Savings",
-                  amount: double.parse(_userState
-                      .moneyViewer(type: _userState.totalSmokeFreeTime['days'])
-                      .toString()),
-                  color: QCMoneyColor.totalSaving,
-                  bgColor: QCMoneyColor.totalSavingBg,
-                ),
-                MoneyCard(
-                  clipArt: Image.asset('assets/images/dashboard/coin.png'),
-                  title: "Weekly Savings",
-                  amount:
-                      double.parse(_userState.moneyViewer(type: 7).toString()),
-                  color: QCMoneyColor.weeklySaving,
-                  bgColor: QCMoneyColor.weeklySavingBg,
-                ),
-              ],
-            ),
+            child: Obx(() => Row(
+                  children: [
+                    MoneyCard(
+                      clipArt:
+                          Image(image: Svg('assets/images/dashboard/cash.svg')),
+                      // clipArt: Image.asset('assets/images/dashboard/cash.png'),
+                      title: "total Savings",
+                      amount: double.parse(_userState
+                          .moneyViewer(
+                              type: _userState.totalSmokeFreeTime['days'])
+                          .toString()),
+                      color: QCMoneyColor.totalSaving,
+                      bgColor: QCMoneyColor.totalSavingBg,
+                    ),
+                    MoneyCard(
+                      clipArt: Image.asset('assets/images/dashboard/coin.png'),
+                      title: "Weekly Savings",
+                      amount: double.parse(
+                          _userState.moneyViewer(type: 7).toString()),
+                      color: QCMoneyColor.weeklySaving,
+                      bgColor: QCMoneyColor.weeklySavingBg,
+                    ),
+                  ],
+                )),
           )
         ],
       ),

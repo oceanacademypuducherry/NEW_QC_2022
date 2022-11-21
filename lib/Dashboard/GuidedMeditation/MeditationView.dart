@@ -5,6 +5,7 @@ import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Dashboard/GuidedMeditation/MeditationPlayer.dart';
 import 'package:new_qc/Dashboard/GuidedMeditation/MisicView.dart';
+import 'package:new_qc/Dashboard/GuidedMeditation/NewMeditationPlayer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MeditationView extends StatelessWidget {
@@ -33,13 +34,7 @@ class MeditationView extends StatelessWidget {
                       title: "Happiness",
                       color: Color(0xffBC7BF2),
                       onPressed: () {
-                        Get.to(
-                            MeditationPlayer(
-                              color: Color(0xffBC7BF2),
-                              imagePath: 'assets/images/meditation/happy_b.svg',
-                              title: "Happiness",
-                              musicPath: "sounds/happy.mp3",
-                            ),
+                        Get.to(NewMeditationPlayer(),
                             transition: Transition.cupertino);
                       },
                     ),

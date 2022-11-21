@@ -42,7 +42,7 @@ class YogaTypes extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 10),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
