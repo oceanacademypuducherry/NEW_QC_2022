@@ -28,6 +28,7 @@ class BackgroundContainer extends StatelessWidget {
       this.backButtonChild,
       this.isDashboard = false,
       this.backButton = false,
+      this.darkMode = false,
       this.padding,
       this.title = "",
       this.action})
@@ -44,6 +45,7 @@ class BackgroundContainer extends StatelessWidget {
   Widget? action;
   EdgeInsets? padding;
   String title;
+  bool darkMode = false;
 
   BottomNavController bottomNavController = Get.find<BottomNavController>();
 
@@ -74,7 +76,9 @@ class BackgroundContainer extends StatelessWidget {
         BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 60, sigmaY: 60),
           child: Container(
-            color: Colors.white.withOpacity(transparentOpacity),
+            color: darkMode
+                ? Colors.black.withOpacity(transparentOpacity)
+                : Colors.white.withOpacity(transparentOpacity),
           ),
         ),
         Container(
@@ -116,7 +120,7 @@ class BackgroundContainer extends StatelessWidget {
                                   onPressed: () {
                                     bottomNavController.changeTab(index);
 
-                                    Get.offAll(pages[index],
+                                    Get.offAll(() => pages[index],
                                         transition: Transition.upToDown);
                                   },
                                 );
@@ -131,7 +135,7 @@ class BackgroundContainer extends StatelessWidget {
                               //
                               //         storage.remove('isLogged');
                               //
-                              //         ///storage.remove('collectedData');
+                              //         ///storage.remove('userData');
                               //
                               //         // Get.to(() => Login());
                               //       },

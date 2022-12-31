@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:rive/rive.dart';
 import 'dart:ui' as ui;
 
-class HealthImprovementBigCard extends StatelessWidget {
+class HealthImprovementBigCard extends StatefulWidget {
   HealthImprovementBigCard({
     Key? key,
     this.title = "no title",
@@ -18,11 +22,68 @@ class HealthImprovementBigCard extends StatelessWidget {
   String description;
   bool isCompleted;
   String colorData;
-  dynamic progress;
+  double progress;
+
+  @override
+  State<HealthImprovementBigCard> createState() =>
+      _HealthImprovementBigCardState();
+}
+
+class _HealthImprovementBigCardState extends State<HealthImprovementBigCard> {
+  SMIInput<double>? inputs;
+  Artboard? artboard;
+
+  Timer? timer;
+
+  initRive() async {
+    final data = await rootBundle.load('assets/Rive/water_loading.riv');
+    final file = RiveFile.import(data);
+    artboard = file.mainArtboard;
+    final controller = StateMachineController.fromArtboard(artboard!, "state");
+    if (controller != null) {
+      artboard!.addController(controller);
+      inputs = controller.findInput<double>("c");
+      inputs!.value = widget.progress;
+      updateValue();
+    }
+  }
+
+  updateValue() {
+    Timer.periodic(Duration(seconds: 1), (t) {
+      if (!mounted) {
+        t.cancel();
+      } else {
+        setState(() {
+          inputs!.value = widget.progress;
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initRive();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    await initRive();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Color colorValue = Color(int.parse(colorData));
+    Color colorValue = Color(int.parse(widget.colorData));
+
     return Container(
       height: context.screenWidth / 1.4,
       width: context.screenWidth / 1.7,
@@ -83,23 +144,23 @@ class HealthImprovementBigCard extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      title,
+                                      widget.title,
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
                                           color: colorValue,
                                           fontSize: 15),
                                     ),
                                     Text(
-                                      description,
+                                      widget.description,
                                       style:
                                           TextStyle(color: Color(0xff9B9B9B)),
                                     ),
-                                    Text('$progress%')
+                                    Text('${widget.progress}%')
                                   ],
                                 ),
                               ),
                             ),
-                            if (isCompleted)
+                            if (widget.isCompleted)
                               Expanded(
                                 child:
                                     CircleAvatar(backgroundColor: colorValue),
@@ -107,18 +168,26 @@ class HealthImprovementBigCard extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Container(
-                        width: context.screenWidth / 2.9,
-                        child: imagePath != null
-                            ? Image.asset(
-                                imagePath!, //'assets/images/dashboard/oxygen.png'
-                                fit: BoxFit.contain,
-                              )
-                            : CircleAvatar(
-                                backgroundColor: Color(0xff9B9B9B),
-                                radius: 50,
-                              ),
-                      ),
+                      // Container(
+                      //   width: context.screenWidth / 2.9,
+                      //   child: widget.imagePath != null
+                      //       ? Image.asset(
+                      //           widget
+                      //               .imagePath!, //'assets/images/dashboard/oxygen.png'
+                      //           fit: BoxFit.contain,
+                      //         )
+                      //       : CircleAvatar(
+                      //           backgroundColor: Color(0xff9B9B9B),
+                      //           radius: 50,
+                      //         ),
+                      // ),
+                      if (artboard != null)
+                        Container(
+                          width: context.screenWidth / 2.9,
+                          height: 100,
+                          // child: Rive(artboard: artboard!),
+                          child: Rive(artboard: artboard!),
+                        ),
                       SizedBox(
                         height: 10,
                       )

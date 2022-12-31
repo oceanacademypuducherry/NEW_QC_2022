@@ -22,17 +22,18 @@ class HealthImprovementView extends StatelessWidget {
             color: QCDashColor.odd,
             child: Obx(() => SingleChildScrollView(
                   child: Column(children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 60,
                     ),
                     ...userStatus.healthImprovements.map((data) {
-                      final prog = ((100 * data["totalMinutesOrDays"]) /
+                      String prog = ((100 * data["totalMinutesOrDays"]) /
                               data["calculationTime"])
                           .toStringAsFixed(1);
+
                       return HealthImprovementBigCard(
                         title: data['title'],
                         description: data['description'],
-                        progress: data['isFinish'] ? 100 : prog,
+                        progress: data['isFinish'] ? 100 : double.parse(prog),
                         isCompleted: data['isFinish'],
                         colorData: data['colorData'],
                         imagePath: data['imagePath'],

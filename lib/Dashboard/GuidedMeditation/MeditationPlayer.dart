@@ -28,13 +28,15 @@ class MeditationPlayer extends StatefulWidget {
   State<MeditationPlayer> createState() => _MeditationPlayerState();
 }
 
-class _MeditationPlayerState extends State<MeditationPlayer> {
+class _MeditationPlayerState extends State<MeditationPlayer>
+    with TickerProviderStateMixin {
   double seek = 0;
   Duration duration = Duration(seconds: 0);
 
   AudioPlayer audioPlayer = AudioPlayer();
 
   bool isPlay = false;
+  bool isScreenTouch = true;
   bool isAmbient = false;
   int meditateDuration = 1;
   late Timer timer;
@@ -48,7 +50,7 @@ class _MeditationPlayerState extends State<MeditationPlayer> {
         } else {
           timer.cancel();
           audioPlayer.pause();
-          isPlay = !isPlay;
+          isPlay = false;
           isAmbient = false;
         }
       });
@@ -89,9 +91,7 @@ class _MeditationPlayerState extends State<MeditationPlayer> {
           //     });
           //   },
           // ),
-          bg: Container(
-            color: QCDashColor.even,
-          ),
+          darkMode: true,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 0),
             child: Column(
@@ -112,52 +112,7 @@ class _MeditationPlayerState extends State<MeditationPlayer> {
                             context.screenWidth / 3, context.screenWidth / 3)),
                   ),
                 ),
-                Visibility(
-                  visible: isAmbient,
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        AmbientCard(
-                          playable: isAmbient,
-                          musicPath: "sounds/bird1.wav",
-                          src: "assets/images/music/rain.svg",
-                          title: "Rain",
-                        ),
-                        AmbientCard(
-                          playable: isAmbient,
-                          musicPath: "sounds/bird2.wav",
-                          src: "assets/images/music/wave.svg",
-                          title: "Wave",
-                        ),
-                        AmbientCard(
-                          playable: isAmbient,
-                          musicPath: "sounds/jungle1.wav",
-                          src: "assets/images/music/thunder.svg",
-                          title: "Thunder",
-                        ),
-                        AmbientCard(
-                          playable: isAmbient,
-                          musicPath: "sounds/jungle2.wav",
-                          src: "assets/images/music/wind.svg",
-                          title: "Wind",
-                        ),
-                        AmbientCard(
-                          playable: isAmbient,
-                          musicPath: "sounds/rain1.wav",
-                          src: "assets/images/music/forest.svg",
-                          title: "Forest",
-                        ),
-                        AmbientCard(
-                          playable: isAmbient,
-                          musicPath: "sounds/rain2.wav",
-                          src: "assets/images/music/fire.svg",
-                          title: "Fire",
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+
                 Container(
                   // width: context.screenWidth,
                   // color: Colors.yellow,
@@ -195,6 +150,7 @@ class _MeditationPlayerState extends State<MeditationPlayer> {
                     children: [
                       GestureDetector(
                         child: Container(
+                          width: 90,
                           padding: EdgeInsets.symmetric(horizontal: 5),
                           decoration: BoxDecoration(
                             border: Border.all(color: widget.color, width: 2),
@@ -218,17 +174,19 @@ class _MeditationPlayerState extends State<MeditationPlayer> {
                         onTap: () {
                           if (isPlay) {
                             audioPlayer.pause();
+                            setState(() {
+                              isPlay = false;
+                            });
                           } else {
                             audioPlayer.play(
                               AssetSource(widget.musicPath),
                             );
-
+                            setState(() {
+                              isPlay = true;
+                            });
                             audioPlayer.setReleaseMode(ReleaseMode.loop);
                             timerFunction();
                           }
-                          setState(() {
-                            isPlay = !isPlay;
-                          });
                         },
                       ),
                       GestureDetector(
@@ -262,6 +220,56 @@ class _MeditationPlayerState extends State<MeditationPlayer> {
                         },
                       ),
                     ],
+                  ),
+                ),
+                AnimatedSize(
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.easeOut,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Container(
+                      height: isAmbient ? null : 0,
+                      child: Wrap(
+                        children: [
+                          AmbientCard(
+                            playable: isAmbient,
+                            musicPath: "sounds/bird1.wav",
+                            src: "assets/images/music/rain.svg",
+                            title: "Rain",
+                          ),
+                          AmbientCard(
+                            playable: isAmbient,
+                            musicPath: "sounds/bird2.wav",
+                            src: "assets/images/music/wave.svg",
+                            title: "Wave",
+                          ),
+                          AmbientCard(
+                            playable: isAmbient,
+                            musicPath: "sounds/jungle1.wav",
+                            src: "assets/images/music/thunder.svg",
+                            title: "Thunder",
+                          ),
+                          AmbientCard(
+                            playable: isAmbient,
+                            musicPath: "sounds/jungle2.wav",
+                            src: "assets/images/music/wind.svg",
+                            title: "Wind",
+                          ),
+                          AmbientCard(
+                            playable: isAmbient,
+                            musicPath: "sounds/rain1.wav",
+                            src: "assets/images/music/forest.svg",
+                            title: "Forest",
+                          ),
+                          AmbientCard(
+                            playable: isAmbient,
+                            musicPath: "sounds/rain2.wav",
+                            src: "assets/images/music/fire.svg",
+                            title: "Fire",
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 )
               ],
@@ -343,9 +351,10 @@ class _AmbientCardState extends State<AmbientCard> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+              padding: EdgeInsets.symmetric(horizontal: 0, vertical: 5),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(),
                   // widget.title.text
@@ -356,6 +365,7 @@ class _AmbientCardState extends State<AmbientCard> {
                   Container(
                     height: 6,
                     width: 6,
+                    margin: EdgeInsets.only(right: 5),
                     decoration: BoxDecoration(
                         color: isPlay
                             ? Color(0xff55A6D3)
@@ -373,23 +383,45 @@ class _AmbientCardState extends State<AmbientCard> {
                   ? Color(0xff55A6D3)
                   : Color(0xff55A6D3).withOpacity(0.3),
             )),
-            Slider.adaptive(
-                activeColor: Color(0xff81C5EB),
-                thumbColor: Color(0xff81C5EB),
-                inactiveColor: Color(0xff81C5EB).withOpacity(0.2),
-                min: 0,
-                max: 1,
-                value: volume,
-                onChanged: (value) {
-                  setState(() {
-                    audioPlayer.setVolume(value);
-                    volume = value;
-                    // widget.audioPlayer!.setVolume(value);
-                  });
-                })
+            SliderTheme(
+                data: SliderThemeData(
+                    trackHeight: 3,
+                    trackShape: CustomTrackShape(),
+                    thumbShape: RoundSliderThumbShape(enabledThumbRadius: 7)),
+                child: Slider.adaptive(
+                    activeColor: Color(0xff81C5EB),
+                    thumbColor: Color(0xff81C5EB),
+                    inactiveColor: Color(0xff81C5EB).withOpacity(0.2),
+                    min: 0,
+                    max: 1,
+                    value: volume,
+                    onChanged: (value) {
+                      setState(() {
+                        audioPlayer.setVolume(value);
+                        volume = value;
+                        // widget.audioPlayer!.setVolume(value);
+                      });
+                    }))
           ],
         ),
       ),
     );
+  }
+}
+
+class CustomTrackShape extends RoundedRectSliderTrackShape {
+  @override
+  Rect getPreferredRect({
+    required RenderBox parentBox,
+    Offset offset = Offset.zero,
+    required SliderThemeData sliderTheme,
+    bool isEnabled = false,
+    bool isDiscrete = false,
+  }) {
+    final trackHeight = sliderTheme.trackHeight;
+    final trackLeft = offset.dx;
+    final trackTop = offset.dy + (parentBox.size.height - trackHeight!) / 2;
+    final trackWidth = parentBox.size.width;
+    return Rect.fromLTWH(trackLeft + 5, trackTop, trackWidth - 10, trackHeight);
   }
 }

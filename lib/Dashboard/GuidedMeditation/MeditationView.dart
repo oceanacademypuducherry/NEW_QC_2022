@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Dashboard/GuidedMeditation/MeditationPlayer.dart';
+import 'package:new_qc/Dashboard/GuidedMeditation/MeditationPlayerAnimation.dart';
 import 'package:new_qc/Dashboard/GuidedMeditation/MisicView.dart';
 import 'package:new_qc/Dashboard/GuidedMeditation/NewMeditationPlayer.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -34,7 +35,13 @@ class MeditationView extends StatelessWidget {
                       title: "Happiness",
                       color: Color(0xffBC7BF2),
                       onPressed: () {
-                        Get.to(NewMeditationPlayer(),
+                        Get.to(
+                            MeditationPlayer(
+                              color: Color(0xffBC7BF2),
+                              imagePath: 'assets/images/meditation/happy_b.svg',
+                              title: "Happiness",
+                              musicPath: "sounds/happy.mp3",
+                            ),
                             transition: Transition.cupertino);
                       },
                     ),
@@ -48,7 +55,7 @@ class MeditationView extends StatelessWidget {
                               color: Color(0xffBC7BF2),
                               imagePath: 'assets/images/meditation/focus_b.svg',
                               title: "Focus",
-                              musicPath: "sounds/focus.mp3",
+                              musicPath: "sounds/happy.mp3",
                             ),
                             transition: Transition.cupertino);
                       },
@@ -70,14 +77,14 @@ class MeditationView extends StatelessWidget {
                     ),
                     MeditationCard(
                       imagePath: 'assets/images/meditation/happy.svg',
-                      title: "Happiness",
+                      title: "Relax",
                       color: Color(0xffBC7BF2),
                       onPressed: () {
                         Get.to(
                             MeditationPlayer(
                               color: Color(0xffBC7BF2),
                               imagePath: 'assets/images/meditation/happy_b.svg',
-                              title: "Happiness",
+                              title: "Relax",
                               musicPath: "sounds/happy.mp3",
                             ),
                             transition: Transition.cupertino);

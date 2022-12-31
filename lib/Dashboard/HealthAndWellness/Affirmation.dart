@@ -7,7 +7,9 @@ import 'dart:ui';
 import 'package:velocity_x/velocity_x.dart';
 
 class AffirmationView extends StatelessWidget {
-  const AffirmationView({Key? key}) : super(key: key);
+  AffirmationView({Key? key, this.dataList}) : super(key: key);
+
+  List<String>? dataList;
 
   @override
   Widget build(BuildContext context) {
@@ -30,15 +32,16 @@ class AffirmationView extends StatelessWidget {
             child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 80, sigmaY: 80),
                 child: PageView(
-                  children: [
-                    textContent(context,
-                        quotes: 'I can do anything I decide to do.'),
-                    textContent(context,
-                        quotes: 'I love being in control of my life.'),
-                    textContent(context,
-                        quotes:
-                            'I am strong enough to handle the challenge of breaking this habit.'),
-                  ],
+                  children: dataList != null
+                      ? dataList!
+                          .map(
+                            (affirmation) =>
+                                textContent(context, quotes: affirmation),
+                          )
+                          .toList()
+                      : [
+                          textContent(context, quotes: 'No affirmation'),
+                        ],
                 )),
           )),
     );

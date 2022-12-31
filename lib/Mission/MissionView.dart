@@ -24,6 +24,10 @@ class MissionView extends StatelessWidget {
     _comments.text = arguments['comments'];
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.question_mark_sharp),
+        onPressed: () {},
+      ),
       body: BackgroundContainer(
         backButton: true,
         title: "Mission-$missionIndex",

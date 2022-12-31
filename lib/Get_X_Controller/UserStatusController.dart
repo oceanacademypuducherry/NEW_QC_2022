@@ -3,11 +3,15 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
+
+// DataCollectionController dataCollectionController =
+//     Get.find<DataCollectionController>();
 
 class UserStatusController extends GetxController {
   GetStorage storage = GetStorage();
   final timer = true.obs;
-  final collectedData = {}.obs;
+  final userData = {}.obs;
   final smokeFreeTime = {}.obs;
   final totalSmokeFreeTime = {
     'years': 0,
@@ -88,15 +92,20 @@ class UserStatusController extends GetxController {
 
   void readSessionData() async {
     stopTimer(runTimer: true);
-    dynamic data = await storage.read("collectedData");
+    dynamic data = await storage.read("userData");
+    print('read sesion------------------------------');
+    print(data);
 
     if (data != null) {
-      startTimer(data["quiteDate"]);
-      collectedData(data);
+      List dateList = data["quiteDate"] ?? [DateTime.now().toString()];
+      print(dateList);
+      print('read sesion------------------------------');
+      startTimer(dateList[dateList.length - 1]);
+      userData(data);
     }
   }
 
-  void stopTimer({runTimer: true}) {
+  void stopTimer({runTimer = true}) {
     timer(runTimer);
   }
 
@@ -271,7 +280,7 @@ class UserStatusController extends GetxController {
   //ToDO:money saved
 
   num moneyViewer({type: 1}) {
-    Map mc = collectedData['cigaretteInfo'];
+    Map mc = userData['cigaretteInfo'];
 
     num savedMoney =
         mc['boxOfCost'] / mc['packOfCigarettes'] * mc['dayOfCigarettes'];
@@ -282,6 +291,7 @@ class UserStatusController extends GetxController {
   void onInit() {
     // TODO: implement onInit
     super.onInit();
+    stopTimer(runTimer: false);
     readSessionData();
   }
 }

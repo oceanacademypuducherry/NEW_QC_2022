@@ -1,14 +1,77 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/BackButton.dart';
+import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:rive/rive.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class SmokeFreeTimeView extends StatelessWidget {
+class SmokeFreeTimeView extends StatefulWidget {
   SmokeFreeTimeView({Key? key}) : super(key: key);
 
+  @override
+  State<SmokeFreeTimeView> createState() => _SmokeFreeTimeViewState();
+}
+
+class _SmokeFreeTimeViewState extends State<SmokeFreeTimeView> {
   UserStatusController userstatus = Get.find<UserStatusController>();
+  UserStatusController timerData = Get.find<UserStatusController>();
+  late StateMachineController stateMachineController;
+
+  Artboard? artboard;
+  SMIInput<double>? inputs;
+
+  void mountainAnimationInit() async {
+    final data = await rootBundle.load('assets/Rive/mountain.riv');
+    final file = RiveFile.import(data);
+    artboard = file.artboardByName('mountain')!.instance();
+
+    final controller = StateMachineController.fromArtboard(artboard!, "state");
+
+    if (controller != null) {
+      stateMachineController = controller;
+      artboard!.instance();
+      artboard!.addController(controller);
+
+      // SMIInput<double>? inputs = controller.findInput<double>("day");
+      inputs = controller.findInput<double>("day");
+      setState(() {
+        inputs!.value = userstatus.smokeFreeTime['minutes'] / 1 ?? 1;
+        updateValue();
+      });
+    }
+  }
+
+  updateValue() {
+    Timer.periodic(Duration(seconds: 1), (t) {
+      if (!mounted) {
+        t.cancel();
+        print('dashboard disposed');
+      } else {
+        setState(() {
+          inputs!.value = 3.0 + (userstatus.smokeFreeTime['minutes'] / 1 ?? 1);
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    mountainAnimationInit();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    if (stateMachineController != null) stateMachineController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,13 +79,26 @@ class SmokeFreeTimeView extends StatelessWidget {
         body: SafeArea(
       child: Stack(
         children: [
-          Container(),
-          const Positioned(
-              right: -80,
-              bottom: -160,
-              child: Image(
-                image: Svg('assets/images/hill.svg', size: Size(800, 800)),
-              )),
+          Container(
+            color: QCDashColor.odd,
+          ),
+          Positioned(
+              // right: context.screenWidth / 2,
+              child: artboard != null
+                  ? Container(
+                      height: context.screenHeight,
+                      width: context.screenWidth,
+                      child: Transform(
+                        transform: Matrix4.translationValues(-130, 20, 0),
+                        child: Transform.scale(
+                          scale: 1.09,
+                          child: Rive(
+                            artboard: artboard!,
+                            useArtboardSize: true,
+                          ).scale(scaleValue: 3),
+                        ),
+                      ))
+                  : SizedBox()),
           Positioned(
             top: 20,
             right: 20,
@@ -55,16 +131,12 @@ class SmokeFreeTimeView extends StatelessWidget {
           Text(
             "$time",
             style: const TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                color: Color(0xff81BAEE)),
+                fontSize: 30, fontWeight: FontWeight.w500, color: Colors.teal),
           ),
           Text(
             userstatus.smokeFreeTime["$time"].toString(),
             style: const TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w500,
-                color: Color(0xff81BAEE)),
+                fontSize: 30, fontWeight: FontWeight.w500, color: Colors.teal),
           )
         ],
       ),

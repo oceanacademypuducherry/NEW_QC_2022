@@ -19,44 +19,67 @@ class MoneySaved extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          // GestureDetector(
+          //   onTap: () {
+          //     Get.to(() => MoneySavedInfo(), transition: Transition.cupertino);
+          //   },
+          //   child: DashboardTitle(
+          //     title: 'Money Saved',
+          //   ),
+          // ),
+
           GestureDetector(
-            onTap: () {
-              Get.to(() => MoneySavedInfo(), transition: Transition.cupertino);
-            },
-            child: DashboardTitle(
-              title: 'Money Saved',
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Obx(() => Row(
+              onTap: () {
+                Get.to(() => MoneySavedInfo(),
+                    transition: Transition.cupertino);
+              },
+              child: Container(
+                width: context.screenWidth,
+                height: 180,
+                // color: Colors.yellow,
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    MoneyCard(
-                      clipArt:
-                          Image(image: Svg('assets/images/dashboard/cash.svg')),
-                      // clipArt: Image.asset('assets/images/dashboard/cash.png'),
-                      title: "total Savings",
-                      amount: double.parse(_userState
-                          .moneyViewer(
-                              type: _userState.totalSmokeFreeTime['days'])
-                          .toString()),
-                      color: QCMoneyColor.totalSaving,
-                      bgColor: QCMoneyColor.totalSavingBg,
+                    Image.asset('assets/images/money.png'),
+                    const SizedBox(
+                      width: 20,
                     ),
-                    MoneyCard(
-                      clipArt: Image.asset('assets/images/dashboard/coin.png'),
-                      title: "Weekly Savings",
-                      amount: double.parse(
-                          _userState.moneyViewer(type: 7).toString()),
-                      color: QCMoneyColor.weeklySaving,
-                      bgColor: QCMoneyColor.weeklySavingBg,
+                    DashboardTitle(
+                      title: 'Money Saved',
                     ),
                   ],
-                )),
-          )
+                ),
+              )),
+
+          // SingleChildScrollView(
+          //   scrollDirection: Axis.horizontal,
+          //   child: Obx(() => Row(
+          //         children: [
+          //           MoneyCard(
+          //             clipArt:
+          //                 Image(image: Svg('assets/images/dashboard/cash.svg')),
+          //             // clipArt: Image.asset('assets/images/dashboard/cash.png'),
+          //             title: "total Savings",
+          //             amount: double.parse(_userState
+          //                 .moneyViewer(
+          //                     type: _userState.totalSmokeFreeTime['days'])
+          //                 .toString()),
+          //             color: QCMoneyColor.totalSaving,
+          //             bgColor: QCMoneyColor.totalSavingBg,
+          //           ),
+          //           MoneyCard(
+          //             clipArt: Image.asset('assets/images/dashboard/coin.png'),
+          //             title: "Weekly Savings",
+          //             amount: double.parse(
+          //                 _userState.moneyViewer(type: 7).toString()),
+          //             color: QCMoneyColor.weeklySaving,
+          //             bgColor: QCMoneyColor.weeklySavingBg,
+          //           ),
+          //         ],
+          //       )),
+          // )
         ],
       ),
     );

@@ -13,13 +13,13 @@ class SmokeTimer extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.8),
+        color: Colors.black.withOpacity(0.6),
         borderRadius: BorderRadius.circular(8),
       ),
       width: MediaQuery.of(context).size.width / 1.3,
       child: Obx(() {
         if (timerData.smokeFreeTime['isStarted'] == 0) {
-          String quitDate = timerData.collectedData['quiteDate'];
+          String quitDate = timerData.userData['quiteDate'];
           return Column(
             children: [
               const Text('Your Journey will start at')

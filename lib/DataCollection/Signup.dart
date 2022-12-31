@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
 import 'package:new_qc/CommonWidgets/NextButton.dart';
 import 'package:new_qc/CommonWidgets/NormalButton.dart';
@@ -7,7 +8,9 @@ import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/CommonWidgets/TextInput.dart';
 import 'package:new_qc/DataCollection/Login.dart';
 import 'package:new_qc/DataCollection/QuitDate.dart';
+import 'package:new_qc/Get_X_Controller/API_Controller.dart';
 import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
+import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key? key}) : super(key: key);
@@ -17,13 +20,14 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  TextEditingController _emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
 
-  DataCollectionController _dcc = Get.find<DataCollectionController>();
+  APIController apiController = Get.find<APIController>();
+  LoadingController loadingController = Get.find<LoadingController>();
 
   bool _nameValidate = true;
 
@@ -31,9 +35,44 @@ class _SignupState extends State<Signup> {
 
   bool _passwordValidate = true;
 
+  bool isConnected = true;
+
+  checkInternetConnection() async {
+    bool result = await InternetConnectionChecker().hasConnection;
+    print(result);
+    if (result == true) {
+      if (isConnected != true) {
+        setState(() {
+          isConnected = true;
+        });
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              content: Text("Make sure your Internet Connection"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
+                    child: Text("Close"))
+              ],
+              // backgroundColor: Colors.transparent,
+              elevation: 0,
+              // contentPadding: EdgeInsets.zero,
+            );
+          });
+      setState(() {
+        isConnected = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         body: SafeArea(
@@ -42,7 +81,7 @@ class _SignupState extends State<Signup> {
           child: Center(
             child: ListView(
               children: [
-                Container(
+                SizedBox(
                   height: screenHeight / 1.05,
                   child: Column(
                     children: [
@@ -79,10 +118,10 @@ class _SignupState extends State<Signup> {
                                 showIcon: true,
                                 isValidate: _passwordValidate,
                               ),
-                              SizedBox(),
+                              const SizedBox(),
                               NormalButton(
                                 buttonName: "SignUp",
-                                onPressed: () {
+                                onPressed: () async {
                                   if (_emailController.text.isEmail) {
                                     _emailValidate = true;
                                     //TODO: check password from DB
@@ -109,17 +148,24 @@ class _SignupState extends State<Signup> {
                                       });
                                     }
 
-                                    //TODO: conntect getxStorage
-                                    Map<String, dynamic> userData = {
-                                      "name": _usernameController.text,
-                                      "email": _emailController.text
-                                    };
+                                    if (isConnected) {
+                                      OverlayEntry loading =
+                                          await loadingController
+                                              .overlayLoading();
+                                      Overlay.of(context)!.insert(loading);
 
-                                    _dcc.addUserInfo(userData);
-
-                                    Get.to(() => QuitDatePicker(),
-                                        transition: Transition.rightToLeft,
-                                        curve: Curves.easeInOut);
+                                      await apiController.signUp(
+                                          email: _emailController.text,
+                                          password: _passwordController.text,
+                                          uname: _usernameController.text);
+                                      loading.remove();
+                                      Get.to(() => QuitDatePicker(),
+                                          transition: Transition.rightToLeft,
+                                          curve: Curves.easeInOut);
+                                    } else {
+                                      print("signup else working");
+                                      checkInternetConnection();
+                                    }
                                   } else {
                                     setState(() {
                                       _emailValidate = false;
@@ -133,81 +179,79 @@ class _SignupState extends State<Signup> {
                       ),
                       Expanded(
                         flex: 10,
-                        child: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                height: 10,
-                                width: MediaQuery.of(context).size.width - 50,
-                                decoration: const BoxDecoration(
-                                    gradient: LinearGradient(colors: [
-                                  Colors.white10,
-                                  Colors.white70,
-                                  Colors.white10
-                                ])),
-                              ),
-                              Container(
-                                margin: EdgeInsets.symmetric(vertical: 10),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    NextButton(
-                                      child: Image.asset(
-                                        'assets/images/oauth/g.png',
-                                        height: screenHeight / 25,
-                                        width: screenHeight / 25,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 20),
-                                    NextButton(
-                                      child: Image.asset(
-                                        'assets/images/oauth/apple.png',
-                                        height: screenHeight / 25,
-                                        width: screenHeight / 25,
-                                      ),
-                                    ),
-                                    const SizedBox(width: 20),
-                                    NextButton(
-                                      child: Image.asset(
-                                        'assets/images/oauth/fb.png',
-                                        height: screenHeight / 25,
-                                        width: screenHeight / 25,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              Row(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Container(
+                              height: 10,
+                              width: MediaQuery.of(context).size.width - 50,
+                              decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [
+                                Colors.white10,
+                                Colors.white70,
+                                Colors.white10
+                              ])),
+                            ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 10),
+                              child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  MaterialButton(
-                                    onPressed: () {
-                                      Get.to(Login(),
-                                          transition: Transition.rightToLeft,
-                                          curve: Curves.easeInOut);
-                                    },
-                                    splashColor: Colors.white30,
-                                    colorBrightness: Brightness.light,
-                                    child: RichText(
-                                      text: TextSpan(children: [
-                                        TextSpan(
-                                            text: "Already have an account?   ",
-                                            style: TextStyle(
-                                                color: QCColors
-                                                    .secondaryTexColor)),
-                                        TextSpan(
-                                          text: 'Login',
-                                          style: TextStyle(
-                                              color: QCColors.inputTextColor),
-                                        )
-                                      ]),
+                                  NextButton(
+                                    child: Image.asset(
+                                      'assets/images/oauth/g.png',
+                                      height: screenHeight / 25,
+                                      width: screenHeight / 25,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  NextButton(
+                                    child: Image.asset(
+                                      'assets/images/oauth/apple.png',
+                                      height: screenHeight / 25,
+                                      width: screenHeight / 25,
+                                    ),
+                                  ),
+                                  const SizedBox(width: 20),
+                                  NextButton(
+                                    child: Image.asset(
+                                      'assets/images/oauth/fb.png',
+                                      height: screenHeight / 25,
+                                      width: screenHeight / 25,
                                     ),
                                   )
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                MaterialButton(
+                                  onPressed: () {
+                                    Get.to(Login(),
+                                        transition: Transition.rightToLeft,
+                                        curve: Curves.easeInOut);
+                                  },
+                                  splashColor: Colors.white30,
+                                  colorBrightness: Brightness.light,
+                                  child: RichText(
+                                    text: TextSpan(children: [
+                                      TextSpan(
+                                          text: "Already have an account?   ",
+                                          style: TextStyle(
+                                              color:
+                                                  QCColors.secondaryTexColor)),
+                                      TextSpan(
+                                        text: 'Login',
+                                        style: TextStyle(
+                                            color: QCColors.inputTextColor),
+                                      )
+                                    ]),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ],

@@ -1,9 +1,20 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:new_qc/Dashboard/Dashboard.dart';
+import 'package:new_qc/DataCollection/QuitDate.dart';
 
 class DataCollectionController extends GetxController {
+  GetStorage storage = GetStorage();
   final userInfo = {}.obs;
-  final quiteDate = "${DateTime.now()}".obs;
-  final cigaretteInfo = <String, int>{
+  final tempQuitDate = "".obs;
+  // final quiteDate = "${DateTime.now()}".obs;
+  final quiteDate = [].obs;
+  final cigaretteInfo = {
     "dayOfCigarettes": 1,
     "packOfCigarettes": 10,
     "boxOfCost": 180,
@@ -15,24 +26,23 @@ class DataCollectionController extends GetxController {
     userInfo(data);
   }
 
-  void addQuitDate(String pickedDate) {
-    quiteDate(pickedDate);
+  setQuitDate(dateList) {
+    quiteDate(dateList);
   }
 
-  void addCigaretteInfo(Map<String, int> info) {
+  String getQuitDate() {
+    return quiteDate[quiteDate.length - 1];
+  }
+
+  void addQuitDate(String pickedDate) {
+    quiteDate.add(pickedDate);
+  }
+
+  void addCigaretteInfo(info) {
     cigaretteInfo(info);
   }
 
   void addReasonList(List<String> reasons) {
     reasonList(reasons);
-  }
-
-  //its not use yet
-  void updateReasonList(String reason, [bool isAdd = true]) {
-    if (isAdd) {
-      reasonList.add(reason);
-    } else {
-      reasonList.remove(reason);
-    }
   }
 }

@@ -9,39 +9,36 @@ import 'package:new_qc/Dashboard/HealthImprovement.dart';
 import 'package:new_qc/Dashboard/MoneySaved.dart';
 import 'package:new_qc/Dashboard/SmokeFreeTime.dart';
 import 'package:new_qc/DataCollection/Login.dart';
+import 'package:new_qc/Get_X_Controller/API_Controller.dart';
 
 import 'package:new_qc/Get_X_Controller/HealthImprovementController.dart';
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
 
 class Dashboard extends StatefulWidget {
-  Dashboard({Key? key}) : super(key: key);
-
   @override
   State<Dashboard> createState() => _DashboardState();
 }
 
 class _DashboardState extends State<Dashboard> {
   UserStatusController userStatus = Get.find<UserStatusController>();
+
   HealthImprovementController hic = Get.find<HealthImprovementController>();
+  APIController apiController = Get.find<APIController>();
 
   GetStorage storage = GetStorage();
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-  }
+    // apiController.backupAction();
+    ///ToDO with out API
+    userStatus.readSessionData();
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
+    ///ToDO with out API
   }
 
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.height / 13);
-
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -55,12 +52,12 @@ class _DashboardState extends State<Dashboard> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height / 13),
+                // SizedBox(height: MediaQuery.of(context).size.height / 13),
                 const SmokeFreeTime(),
                 HealthImprovement(),
                 MoneySaved(),
                 Achievements(),
-                GuidedMeditation(),
+                const GuidedMeditation(),
                 HealthAndWellness(),
                 SizedBox(height: MediaQuery.of(context).size.height / 13),
               ],

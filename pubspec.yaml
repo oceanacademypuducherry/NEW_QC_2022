@@ -47,6 +47,15 @@ dependencies:
   pausable_timer: ^1.0.0+6
   syncfusion_flutter_charts: ^20.3.57
   confetti: ^0.7.0
+  screenshot: ^1.2.3
+  share_plus: ^6.3.0
+  path_provider: ^2.0.11
+  http: ^0.13.5
+  dio: ^4.0.6
+  connectivity_plus: ^3.0.2
+  internet_connection_checker: ^1.0.0+1
+  numberpicker: ^2.1.1
+
 
 
 
@@ -85,7 +94,10 @@ flutter:
     - assets/images/meditation/
     - assets/images/navbar/
     - assets/images/mission/
+    - assets/images/badges/
+    - assets/images/affirmation/
     - assets/Rive/
+    - assets/Rive/breath_animation/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

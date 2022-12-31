@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Dashboard/HealthAndWellness/Affirmation.dart';
+import 'package:new_qc/Dashboard/HealthAndWellness/AffirmationCards.dart';
 import 'package:new_qc/Dashboard/HealthAndWellness/BreathCards.dart';
 import 'package:new_qc/Dashboard/HealthAndWellness/WisdomView.dart';
 import 'package:new_qc/Dashboard/HealthAndWellness/YogaTypes.dart';
@@ -13,7 +14,7 @@ class HealthAndWellness extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xffF8FCFF),
+      color: QCDashColor.even,
       child: Column(
         children: [
           const SizedBox(
@@ -38,9 +39,10 @@ class HealthAndWellness extends StatelessWidget {
                 ),
                 WellnessCard(
                   title: "Affirmation ",
-                  path: 'assets/images/haw/af.png',
+                  path: 'assets/images/haw/aff.png',
                   onPressed: () {
-                    Get.to(AffirmationView(), transition: Transition.cupertino);
+                    Get.to(AffirmationCards(),
+                        transition: Transition.cupertino);
                   },
                 ),
                 WellnessCard(
@@ -94,12 +96,12 @@ class WellnessCard extends StatelessWidget {
               width: screenWidth / 3,
               padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               decoration: BoxDecoration(
-                  color: QCHealthAndWellness.blueBg,
+                  color: QCDashColor.odd,
                   borderRadius: BorderRadius.circular(10)),
               child: path != null
                   ? Image.asset(
                       path!,
-                      color: QCHealthAndWellness.blueBg,
+                      color: QCDashColor.odd,
                       colorBlendMode: BlendMode.multiply,
                       filterQuality: FilterQuality.high,
                       fit: BoxFit.contain,

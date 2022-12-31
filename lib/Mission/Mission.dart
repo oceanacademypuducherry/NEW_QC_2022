@@ -3,6 +3,7 @@ import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
+import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
 import 'package:new_qc/Get_X_Controller/MissionController.dart';
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
 import 'package:new_qc/Mission/MissionView.dart';
@@ -12,7 +13,6 @@ class Missions extends StatelessWidget {
   Missions({Key? key}) : super(key: key);
 
   MissionController _missionController = Get.find<MissionController>();
-  UserStatusController _userStatus = Get.find<UserStatusController>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +25,7 @@ class Missions extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(height: 80),
-                  if (int.parse(
-                          _userStatus.totalSmokeFreeTime['days'].toString()) <=
-                      0)
+                  if (_missionController.missionDay.value <= 0)
                     const SizedBox(
                       height: 50,
                       child: Center(
@@ -40,6 +38,7 @@ class Missions extends StatelessWidget {
                     return MissionTail(
                       missionData: data[index],
                       missionIndex: index + 1,
+                      currentDayCount: _missionController.missionDay.value,
                     );
                   }),
                   SizedBox(height: 80),
@@ -56,9 +55,11 @@ class MissionTail extends StatelessWidget {
     Key? key,
     this.missionData,
     this.missionIndex = 0,
+    this.currentDayCount = 0,
   }) : super(key: key);
-  UserStatusController _userStatus = Get.find<UserStatusController>();
+  // UserStatusController _userStatus = Get.find<UserStatusController>();
   Map? missionData;
+  int currentDayCount;
   int missionIndex;
 
   Icon buildIcon(BuildContext context,
@@ -70,8 +71,7 @@ class MissionTail extends StatelessWidget {
         color: Colors.green,
       );
     } else {
-      if (missionOpenDay <=
-          int.parse(_userStatus.totalSmokeFreeTime['days'].toString())) {
+      if (missionOpenDay <= currentDayCount) {
         return Icon(
           FontAwesomeIcons.lockOpen,
           size: context.screenHeight / 40,
@@ -126,10 +126,10 @@ class MissionTail extends StatelessWidget {
                 ],
               ),
             ),
-            onTap: () {
-              if (missionData!['openDay'] >=
-                  int.parse(
-                      _userStatus.totalSmokeFreeTime['days'].toString())) {
+            onTap: () async {
+              print(missionData);
+              print(currentDayCount);
+              if (missionData!['openDay'] > currentDayCount) {
                 Get.snackbar(
                   'Mission Locked',
                   "Mission Unlocked soon",

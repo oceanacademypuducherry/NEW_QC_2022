@@ -37,6 +37,11 @@ class QuitDatePicker extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       child: SfDateRangePicker(
                         toggleDaySelection: false,
+                        maxDate: DateTime(DateTime.now().year,
+                            DateTime.now().month, DateTime.now().day + 7),
+                        todayHighlightColor: QCColors.inputTextColor,
+                        selectionColor: QCColors.inputTextColor,
+                        backgroundColor: Colors.white38,
                         onSelectionChanged: (val) {
                           DateTime dd = DateTime.parse(val.value.toString());
                           DateTime timing = DateTime.now();
@@ -47,15 +52,9 @@ class QuitDatePicker extends StatelessWidget {
                               timing.hour,
                               timing.minute,
                               timing.second);
-                          print(quiteDate); //TODO: store getx Storage
 
-                          _dcc.addQuitDate(quiteDate.toString());
+                          _dcc.tempQuitDate(quiteDate.toString());
                         },
-                        maxDate: DateTime(DateTime.now().year,
-                            DateTime.now().month, DateTime.now().day + 7),
-                        todayHighlightColor: QCColors.inputTextColor,
-                        selectionColor: QCColors.inputTextColor,
-                        backgroundColor: Colors.white38,
                       ),
                     ),
                   ),
@@ -71,7 +70,7 @@ class QuitDatePicker extends StatelessWidget {
                           EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                       margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                       onPressed: () {
-                        print(_dcc.quiteDate);
+                        _dcc.addQuitDate(_dcc.tempQuitDate.value);
                         Get.to(() => CigaretteInfo(),
                             transition: Transition.rightToLeft,
                             curve: Curves.easeInOut);

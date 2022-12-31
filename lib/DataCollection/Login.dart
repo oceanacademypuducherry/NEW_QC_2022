@@ -1,6 +1,9 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
 import 'package:new_qc/CommonWidgets/NextButton.dart';
 import 'package:new_qc/CommonWidgets/NormalButton.dart';
@@ -9,7 +12,10 @@ import 'package:new_qc/CommonWidgets/TextInput.dart';
 import 'package:new_qc/Dashboard/Dashboard.dart';
 import 'package:new_qc/DataCollection/QuitDate.dart';
 import 'package:new_qc/DataCollection/Signup.dart';
+import 'package:new_qc/Get_X_Controller/API_Controller.dart';
 import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
+import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
+
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
 
 class Login extends StatefulWidget {
@@ -22,8 +28,9 @@ class _LoginState extends State<Login> {
 
   TextEditingController _passwordController = TextEditingController();
 
-  DataCollectionController _dcc = Get.find<DataCollectionController>();
+  APIController apiController = Get.find<APIController>();
   UserStatusController userStatus = Get.find<UserStatusController>();
+  LoadingController loadingController = Get.find<LoadingController>();
 
   bool _emailValidate = true;
 
@@ -31,15 +38,54 @@ class _LoginState extends State<Login> {
 
   GetStorage storage = GetStorage();
   ScrollController scrollController = ScrollController();
+  bool isConnected = true;
+
+  checkInternetConnection() async {
+    bool result = await InternetConnectionChecker().hasConnection;
+    print(result);
+    if (result == true) {
+      if (isConnected != true) {
+        setState(() {
+          isConnected = true;
+        });
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return AlertDialog(
+              content: Text("Make sure your Internet Connection"),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      setState(() {});
+                    },
+                    child: Text("Close"))
+              ],
+              // backgroundColor: Colors.transparent,
+              elevation: 0,
+              // contentPadding: EdgeInsets.zero,
+            );
+          });
+      setState(() {
+        isConnected = false;
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    checkInternetConnection();
+  }
 
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
-    bool isKeyBoard = MediaQuery.of(context).viewInsets.bottom != 0;
+    // bool isKeyBoard = MediaQuery.of(context).viewInsets.bottom != 0;
 
-    print(screenSize.width);
-    print(isKeyBoard);
-    if (isKeyBoard) {}
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -80,7 +126,7 @@ class _LoginState extends State<Login> {
                                     keyboardType: TextInputType.emailAddress,
                                     isValidate: _emailValidate,
                                   ),
-                                  SizedBox(height: 15),
+                                  const SizedBox(height: 15),
                                   TextInput(
                                     controller: _passwordController,
                                     hintText: 'Password',
@@ -114,22 +160,28 @@ class _LoginState extends State<Login> {
                                           });
                                           return;
                                         }
+                                        if (isConnected) {
+                                          OverlayEntry loading =
+                                              await loadingController
+                                                  .overlayLoading();
+                                          Overlay.of(context)!.insert(loading);
 
-                                        //TODO: conntect getxStorage
-                                        Map<String, dynamic> userData = {
-                                          "name": 'username',
-                                          "email": _emailController.text
-                                        };
+                                          await apiController.login(
+                                              password:
+                                                  _passwordController.text,
+                                              email: _emailController.text);
 
-                                        _dcc.addUserInfo(userData);
-
-                                        userStatus.stopTimer(runTimer: true);
-                                        userStatus.readSessionData();
-                                        await storage.write("isLogged", true);
-
-                                        Get.to(() => Dashboard(),
-                                            transition: Transition.rightToLeft,
-                                            curve: Curves.easeInOut);
+                                          userStatus.readSessionData();
+                                          loading.remove();
+                                          // userStatus.stopTimer(runTimer: true);
+                                          Get.to(() => Dashboard(),
+                                              transition:
+                                                  Transition.rightToLeft,
+                                              curve: Curves.easeInOut);
+                                        } else {
+                                          print("login else working");
+                                          checkInternetConnection();
+                                        }
                                       } else {
                                         setState(() {
                                           _emailValidate = false;

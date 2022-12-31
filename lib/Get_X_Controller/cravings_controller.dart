@@ -3,6 +3,8 @@ import 'package:get_storage/get_storage.dart';
 
 class CravingsController extends GetxController {
   GetStorage storage = GetStorage();
+  final userData = {}.obs;
+
   final cravingsData = [].obs;
 
   final cravingStrong = 1.0.obs;
@@ -31,31 +33,33 @@ class CravingsController extends GetxController {
     } else {
       cravingsData.add(newCraving);
     }
-
-    await storage.write('cravings', cravingsData);
+    userData["cravings"] = cravingsData;
+    await storage.write('userData', userData.value);
     print(newCraving);
 
     clearData();
   }
 
-  loadCravings() {
-    final oldCravingData = storage.read('cravings');
-
-    if (oldCravingData != null) {
-      cravingsData(oldCravingData);
-    } else {
-      cravingsData([
-        {
-          'strong': 0,
-          'feeling': 'no',
-          'doing': 'no',
-          'whoWithYou': 'no',
-          'comment': 'no',
-          'day': 0
-        }
-      ]);
+  loadCravings() async {
+    dynamic uData = await storage.read('userData');
+    userData(uData);
+    if (uData != null) {
+      final oldCravingData = userData['cravings'];
+      if (oldCravingData != null) {
+        cravingsData(oldCravingData);
+      } else {
+        cravingsData([
+          {
+            'strong': 0,
+            'feeling': 'no',
+            'doing': 'no',
+            'whoWithYou': 'no',
+            'comment': 'no',
+            'day': 0
+          }
+        ]);
+      }
     }
-    print(oldCravingData);
   }
 
   @override

@@ -7,15 +7,25 @@ import 'package:new_qc/CommonWidgets/NextButton.dart';
 import 'package:new_qc/CommonWidgets/QCChip.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Dashboard/Dashboard.dart';
+import 'package:new_qc/Get_X_Controller/API_Controller.dart';
+import 'package:new_qc/Get_X_Controller/BottomNavController.dart';
 import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
+import 'package:new_qc/Get_X_Controller/HealthImprovementController.dart';
+import 'package:new_qc/Get_X_Controller/JournalController.dart';
+import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
+import 'package:new_qc/Get_X_Controller/MissionController.dart';
 import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:new_qc/Get_X_Controller/cravings_controller.dart';
+import 'package:new_qc/main.dart';
 
 class ReasonQuit extends StatelessWidget {
   ReasonQuit({Key? key}) : super(key: key);
 
   GetStorage storage = GetStorage();
   DataCollectionController _dcc = Get.find<DataCollectionController>();
+  APIController apiController = Get.find<APIController>();
   UserStatusController userStatus = Get.find<UserStatusController>();
+  LoadingController loadingController = Get.find<LoadingController>();
   List<String> reasons = [
     "Freedom",
     "Health",
@@ -76,28 +86,27 @@ class ReasonQuit extends StatelessWidget {
                     NextButton(
                       color: Colors.white38,
                       isBorder: false,
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
                       margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
                       onPressed: () async {
                         //TODO: getx Storage
 
                         _dcc.addReasonList(QCChip.reasonList);
+                        OverlayEntry loading =
+                            await loadingController.overlayLoading();
+                        // ignore: use_build_context_synchronously
+                        Overlay.of(context)!.insert(loading);
 
-                        print('==========');
-                        Map collectedData = {
-                          "userInfo": _dcc.userInfo.value,
-                          "cigaretteInfo": _dcc.cigaretteInfo.value,
+                        await apiController.addDatacollection(data: {
                           "quiteDate": _dcc.quiteDate.value,
+                          "cigaretteInfo": _dcc.cigaretteInfo.value,
                           "reasonList": _dcc.reasonList.value
-                        };
+                        });
 
-                        await storage.write('collectedData', collectedData);
-                        await storage.write("isLogged", true);
-
-                        print('==========');
-                        userStatus.stopTimer(runTimer: true);
                         userStatus.readSessionData();
+                        loading.remove();
+
                         Get.to(() => Dashboard(),
                             transition: Transition.rightToLeft,
                             curve: Curves.easeInOut);

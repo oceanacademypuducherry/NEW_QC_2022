@@ -1,22 +1,172 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/practice/particuls.dart';
+import 'package:new_qc/DataCollection/Login.dart';
+import 'package:new_qc/DataCollection/QuitDate.dart';
+import 'package:new_qc/Get_X_Controller/BottomNavController.dart';
+import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
+import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:new_qc/More/GetBackup.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class More extends StatelessWidget {
-  const More({Key? key}) : super(key: key);
+  More({Key? key}) : super(key: key);
+
+  GetStorage storage = GetStorage();
+  UserStatusController userStatus = Get.find<UserStatusController>();
+  final BottomNavController _bottomNavController =
+      Get.find<BottomNavController>();
+  final DataCollectionController _dataCollectionController =
+      Get.find<DataCollectionController>();
+
+  _backup() {
+    Get.to(GetBackup(), transition: Transition.size);
+  }
+
+  _logout() {
+    // return;
+    storage.erase();
+    userStatus.stopTimer(runTimer: false);
+    Get.to(Login(), transition: Transition.rightToLeft);
+    _bottomNavController.startPage();
+  }
+
+  _relapse() async {
+    userStatus.stopTimer(runTimer: false);
+    List dates = userStatus.userData["quiteDate"];
+
+    _dataCollectionController.setQuitDate(dates);
+    _bottomNavController.startPage();
+
+    await storage.write('isPending', true);
+
+    Get.to(QuitDatePicker(), transition: Transition.rightToLeft);
+  }
+
+  _profile() {
+    print(_dataCollectionController.quiteDate);
+    print(userStatus.userData);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Particuls();
     return Scaffold(
       body: BackgroundContainer(
         isDashboard: true,
-        child: Container(
-          child: Center(
-            child: Text("More"),
-          ),
+        child: Column(
+          children: [
+            const SizedBox(height: 70),
+            Container(
+              width: context.screenWidth / 1.05,
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              height: 100,
+              decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.7),
+                  borderRadius: BorderRadius.circular(5)),
+              child: Row(
+                children: [
+                  Container(
+                    height: 65,
+                    width: 65,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(40),
+                        border: Border.all(
+                            color: const Color(0xff686868).withOpacity(0.2),
+                            width: 2)),
+                    child: Image.asset(
+                      'assets/images/badges/b1.png',
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  SizedBox(
+                    height: 100,
+                    width: (context.screenWidth / 1.05) - 105,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        "Thamizh HD"
+                            .text
+                            .bold
+                            .color(Color(0xff656565))
+                            .fontFamily("Roboto")
+                            .size(20)
+                            .make(),
+                        "thamizh@gmail.com"
+                            .text
+                            .color(Color(0xff8A8A8A))
+                            .fontFamily("Roboto")
+                            .size(15)
+                            .make()
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            ProfileItem(label: "Profile", onPressed: _profile),
+            ProfileItem(label: "Backup", onPressed: _backup),
+            ProfileItem(
+              label: "Relapse",
+              onPressed: _relapse,
+            ),
+            ProfileItem(label: "Feedback"),
+            ProfileItem(label: "About"),
+            ProfileItem(label: "Logout", onPressed: _logout),
+            const SizedBox(height: 80)
+          ],
         ),
       ),
     );
+  }
+}
+
+class ProfileItem extends StatelessWidget {
+  ProfileItem({Key? key, this.label = 'label', this.onPressed})
+      : super(key: key);
+
+  String label;
+  VoidCallback? onPressed;
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(3),
+      child: Material(
+        color: Colors.white.withOpacity(0.7),
+        elevation: 0,
+        child: InkWell(
+          onTap: onPressed,
+          child: Container(
+            height: 50,
+            width: context.screenWidth / 1.05,
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                label.text
+                    .size(18)
+                    .fontWeight(FontWeight.w500)
+                    .fontFamily('Roboto')
+                    .color(Color(0xff686868))
+                    .make(),
+                const Icon(
+                  FontAwesomeIcons.angleRight,
+                  size: 18,
+                  color: Color(0xff686868),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    ).marginSymmetric(vertical: 1);
   }
 }

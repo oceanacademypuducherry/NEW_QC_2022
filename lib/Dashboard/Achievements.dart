@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart';
+
 import 'package:get/get.dart';
 import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
 import 'package:new_qc/CommonWidgets/QC_Colors.dart';
 import 'package:new_qc/Dashboard/AchievementCollection/AchievementView.dart';
+import 'package:new_qc/practice/practice.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class Achievements extends StatelessWidget {
@@ -14,9 +15,11 @@ class Achievements extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(AchievementView(), transition: Transition.cupertino);
+        Get.to(Practice(), transition: Transition.cupertino);
       },
       child: Container(
-        color: QCDashColor.even,
+        // color: QCDashColor.even,
+        color: Colors.white,
         padding: EdgeInsets.symmetric(vertical: 20),
         width: context.screenWidth,
         child: Column(
@@ -24,6 +27,7 @@ class Achievements extends StatelessWidget {
             DashboardTitle(
               title: "Achievements",
             ),
+
             const SizedBox(height: 10),
             // SingleChildScrollView(
             //   scrollDirection: Axis.horizontal,
@@ -39,43 +43,21 @@ class Achievements extends StatelessWidget {
             //   ),
             // )
 
-            Container(
-              width: context.screenWidth / 1.3,
-              height: context.screenWidth / 2.3,
-              decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.8),
-                  borderRadius: BorderRadius.circular(10)),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
-              child: Stack(
-                alignment: Alignment.center,
-                children: const [
-                  Positioned(
-                    left: -170,
-                    top: -80,
-                    child: Opacity(
-                      opacity: 0.5,
-                      child: Image(
-                        image: Svg('assets/images/paper.svg',
-                            size: Size(200, 200)),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  AchievementCard(
+                    title: "Health",
+                    imagePath: 'assets/images/he_ah.png',
+                    color: Color(0xff1455B8),
                   ),
-                  Image(
-                      image: Svg('assets/images/dashboard/cup_group.svg',
-                          size: Size(120, 120))),
-                  Positioned(
-                    right: -0,
-                    bottom: 0,
-                    child: Opacity(
-                      opacity: 0.5,
-                      child: Image(
-                        image: Svg('assets/images/paper.svg',
-                            size: Size(200, 200)),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  )
+                  AchievementCard(
+                    title: "Time",
+                    imagePath: 'assets/images/ti_ah.png',
+                    color: Color(0xffFCA364),
+                  ),
+                  AchievementCard(),
                 ],
               ),
             ),
@@ -87,60 +69,32 @@ class Achievements extends StatelessWidget {
 }
 
 class AchievementCard extends StatelessWidget {
-  AchievementCard({
-    Key? key,
-    this.isCompleted = false,
-  }) : super(key: key);
-
-  bool isCompleted;
+  AchievementCard(
+      {Key? key,
+      this.title = 'Title',
+      this.color = Colors.black,
+      this.imagePath = 'assets/images/he_ah.png'})
+      : super(key: key);
+  String imagePath;
+  Color color;
+  String title;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: context.screenWidth / 2.2,
+      height: context.screenWidth / 1.8,
       margin: EdgeInsets.symmetric(horizontal: 10),
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(10)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.end,
+          color: color.withOpacity(0.1),
+          borderRadius: BorderRadius.circular(10)),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  '5 Minutes ',
-                  style: TextStyle(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16,
-                      color: isCompleted
-                          ? QCMoneyColor.weeklySaving
-                          : Colors.grey),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  'Smoke Free Time',
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                      color: Colors.grey[700]),
-                ),
-                const SizedBox(height: 10)
-              ],
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Container(
-            child: ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                  Colors.white, isCompleted ? BlendMode.darken : BlendMode.hue),
-              child: Image.asset('assets/images/dashboard/cup.png'),
-            ),
-          )
+          Image.asset(imagePath),
+          const SizedBox(height: 10),
+          title.text.color(color).size(20).fontFamily("Montserrat").bold.make()
         ],
       ),
     );

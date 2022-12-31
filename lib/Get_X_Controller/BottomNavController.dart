@@ -6,4 +6,8 @@ class BottomNavController extends GetxController {
   changeTab(index) {
     activeIndex(index);
   }
+
+  startPage() {
+    activeIndex(0);
+  }
 }

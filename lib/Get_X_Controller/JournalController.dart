@@ -7,8 +7,8 @@ class JournalController extends GetxController {
   final allJournal = [].obs;
   GetStorage storage = GetStorage();
 
-  addJournal(journalData) {
-    dynamic index = null;
+  addJournal(journalData) async {
+    dynamic index;
 
     int element = allJournal.length;
     if (allJournal.isNotEmpty) {
@@ -32,19 +32,25 @@ class JournalController extends GetxController {
     }
 
     if (index == null) {
-      allJournal.value.add(journalData);
+      allJournal.add(journalData);
     } else {
-      allJournal.value[index] = journalData;
+      allJournal[index] = journalData;
     }
-    storage.write("journal", allJournal);
+    Map userData = await storage.read("userData");
+    userData["journals"] = allJournal;
+    storage.write("userData", userData);
   }
 
   getAllJournal() async {
-    dynamic journals = await storage.read('journal');
-    if (journals != null) {
-      allJournal(journals);
-    } else {
-      print("no journal data");
+    dynamic userdata = await storage.read('userData');
+
+    if (userdata != null) {
+      final journals = userdata['journals'];
+      if (journals != null) {
+        allJournal(journals);
+      } else {
+        print("no journal data");
+      }
     }
   }
 
