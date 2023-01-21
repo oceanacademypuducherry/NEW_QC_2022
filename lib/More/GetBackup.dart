@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/Get_X_Controller/API_Controller.dart';
-import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/Get_X_Controller/API_Controller.dart';
+import 'package:SFM/Get_X_Controller/Loading_contoller.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 import 'package:rive/rive.dart';
 import 'package:velocity_x/velocity_x.dart';
 

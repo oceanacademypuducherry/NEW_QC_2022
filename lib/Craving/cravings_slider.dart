@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Get_X_Controller/cravings_controller.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Get_X_Controller/cravings_controller.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class CravingsSlider extends StatelessWidget {

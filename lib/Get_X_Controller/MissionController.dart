@@ -7,6 +7,10 @@ class MissionController extends GetxController {
 
   loadMissionData() async {
     dynamic userData = await storage.read('userData');
+
+    print('load missions========>');
+    print(userData);
+    print('load missions========>');
     if (userData != null) {
       missionData(userData['missions'] ?? []);
     }

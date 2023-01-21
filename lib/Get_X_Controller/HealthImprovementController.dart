@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 
 class HealthImprovementController extends GetxController {
   UserStatusController userStatus = Get.find<UserStatusController>();

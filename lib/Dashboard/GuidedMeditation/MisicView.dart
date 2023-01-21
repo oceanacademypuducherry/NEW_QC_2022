@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MusicView extends StatelessWidget {

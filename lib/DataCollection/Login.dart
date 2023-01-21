@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/NextButton.dart';
-import 'package:new_qc/CommonWidgets/NormalButton.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/CommonWidgets/TextInput.dart';
-import 'package:new_qc/Dashboard/Dashboard.dart';
-import 'package:new_qc/DataCollection/QuitDate.dart';
-import 'package:new_qc/DataCollection/Signup.dart';
-import 'package:new_qc/Get_X_Controller/API_Controller.dart';
-import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
-import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/NextButton.dart';
+import 'package:SFM/CommonWidgets/NormalButton.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/CommonWidgets/TextInput.dart';
+import 'package:SFM/Dashboard/Dashboard.dart';
+import 'package:SFM/DataCollection/QuitDate.dart';
+import 'package:SFM/DataCollection/Signup.dart';
+import 'package:SFM/Get_X_Controller/API_Controller.dart';
+import 'package:SFM/Get_X_Controller/DataCollectionController.dart';
+import 'package:SFM/Get_X_Controller/Loading_contoller.dart';
 
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -43,6 +43,7 @@ class _LoginState extends State<Login> {
   checkInternetConnection() async {
     bool result = await InternetConnectionChecker().hasConnection;
     print(result);
+
     if (result == true) {
       if (isConnected != true) {
         setState(() {
@@ -152,7 +153,7 @@ class _LoginState extends State<Login> {
                                     onPressed: () async {
                                       if (_emailController.text.isEmail) {
                                         _emailValidate = true;
-                                        //TODO: check password from DB
+
                                         if (_passwordController.text.length <
                                             6) {
                                           setState(() {
@@ -160,24 +161,29 @@ class _LoginState extends State<Login> {
                                           });
                                           return;
                                         }
-                                        if (isConnected) {
+                                        if (isConnected || true) {
                                           OverlayEntry loading =
                                               await loadingController
                                                   .overlayLoading();
                                           Overlay.of(context)!.insert(loading);
 
-                                          await apiController.login(
-                                              password:
-                                                  _passwordController.text,
-                                              email: _emailController.text);
-
-                                          userStatus.readSessionData();
-                                          loading.remove();
-                                          // userStatus.stopTimer(runTimer: true);
-                                          Get.to(() => Dashboard(),
-                                              transition:
-                                                  Transition.rightToLeft,
-                                              curve: Curves.easeInOut);
+                                          bool isLogged =
+                                              await apiController.login(
+                                                  password:
+                                                      _passwordController.text,
+                                                  email: _emailController.text);
+                                          if (isLogged) {
+                                            userStatus.readSessionData();
+                                            loading.remove();
+                                            userStatus.stopTimer(
+                                                runTimer: true);
+                                            Get.to(() => Dashboard(),
+                                                transition:
+                                                    Transition.rightToLeft,
+                                                curve: Curves.easeInOut);
+                                          } else {
+                                            loading.remove();
+                                          }
                                         } else {
                                           print("login else working");
                                           checkInternetConnection();

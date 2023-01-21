@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_qc/Dashboard/Achievements.dart';
+import 'package:SFM/Dashboard/Achievements.dart';
 
 class Practice extends StatefulWidget {
   const Practice({Key? key}) : super(key: key);

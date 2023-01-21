@@ -25,7 +25,7 @@ class NextButton extends StatelessWidget {
             print("OnPressed not called");
           },
       child: Container(
-          height: height ?? MediaQuery.of(context).size.height / 20,
+          // height: height ?? MediaQuery.of(context).size.height / 20,
           margin:
               margin ?? const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
           padding: padding ??

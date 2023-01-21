@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation/MeditationPlayer.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation/MeditationPlayerAnimation.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation/MisicView.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation/NewMeditationPlayer.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Dashboard/GuidedMeditation/MeditationPlayer.dart';
+import 'package:SFM/Dashboard/GuidedMeditation/MeditationPlayerAnimation.dart';
+import 'package:SFM/Dashboard/GuidedMeditation/MisicView.dart';
+import 'package:SFM/Dashboard/GuidedMeditation/NewMeditationPlayer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MeditationView extends StatelessWidget {

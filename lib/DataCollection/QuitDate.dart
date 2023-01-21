@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/DataCollectionTitle.dart';
-import 'package:new_qc/CommonWidgets/NextButton.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/DataCollection/CigaretteInfo.dart';
-import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/DataCollectionTitle.dart';
+import 'package:SFM/CommonWidgets/NextButton.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/DataCollection/CigaretteInfo.dart';
+import 'package:SFM/Get_X_Controller/DataCollectionController.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 class QuitDatePicker extends StatelessWidget {

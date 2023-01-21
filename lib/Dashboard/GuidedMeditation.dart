@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation/MeditationView.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation/MisicView.dart';
+import 'package:SFM/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Dashboard/GuidedMeditation/MeditationView.dart';
+import 'package:SFM/Dashboard/GuidedMeditation/MisicView.dart';
 
 class GuidedMeditation extends StatelessWidget {
   const GuidedMeditation({Key? key}) : super(key: key);

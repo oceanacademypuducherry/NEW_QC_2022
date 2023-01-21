@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/DashboardWidgets/SmokeTimer.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Dashboard/SmokeFreeTime/SmokeFreeTimeView.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/CommonWidgets/DashboardWidgets/SmokeTimer.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Dashboard/SmokeFreeTime/SmokeFreeTimeView.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 import 'package:rive/rive.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -54,7 +54,7 @@ class _SmokeFreeTimeState extends State<SmokeFreeTime> {
         print('dashboard disposed');
       } else {
         setState(() {
-          inputs!.value = 3.0 + (timerData.smokeFreeTime['minutes'] / 1 ?? 1);
+          inputs!.value = 0.0 + (timerData.totalSmokeFreeTime['days'] ?? 1);
         });
       }
     });
@@ -71,27 +71,35 @@ class _SmokeFreeTimeState extends State<SmokeFreeTime> {
   Widget build(BuildContext context) {
     return Container(
       color: QCDashColor.odd,
+      height: 370,
       child: Stack(
-        alignment: Alignment.bottomCenter,
+        alignment: Alignment.topCenter,
         children: [
-          artboard != null
-              ? Container(
-                  height: context.screenHeight / 2.5,
-                  width: context.screenWidth,
-                  child: Rive(
-                    artboard: artboard!,
-                    fit: BoxFit.cover,
-                  ))
-              : Image.asset('assets/images/hill.png'),
-          GestureDetector(
-              onTap: () {
-                Get.to(SmokeFreeTimeView(), transition: Transition.cupertino);
+          Positioned(
+            // right: 20,
+            child: artboard != null
+                ? Container(
+                    height: context.screenHeight / 2.5,
+                    width: context.screenWidth,
+                    child: Rive(
+                      artboard: artboard!,
+                      fit: BoxFit.cover,
+                    ))
+                : Image.asset('assets/images/hill.png'),
+          ),
+          Positioned(
+            bottom: 10,
+            child: GestureDetector(
+                onTap: () {
+                  Get.to(() => SmokeFreeTimeView(),
+                      transition: Transition.cupertino);
 
-                // setState(() {
-                //   inputs!.value = 63;
-                // });
-              },
-              child: SmokeTimer()),
+                  // setState(() {
+                  //   inputs!.value = 63;
+                  // });
+                },
+                child: SmokeTimer()),
+          ),
         ],
       ),
     );

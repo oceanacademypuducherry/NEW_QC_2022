@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Get_X_Controller/JournalController.dart';
-import 'package:new_qc/Journal/Journal/JournalRead.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Get_X_Controller/JournalController.dart';
+import 'package:SFM/Journal/Journal/JournalRead.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SeeAllJournal extends StatefulWidget {

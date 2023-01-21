@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Craving/craving_details.dart';
-import 'package:new_qc/Craving/cravings_info.dart';
-import 'package:new_qc/Craving/cravings_slider.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
-import 'package:new_qc/Get_X_Controller/cravings_controller.dart';
-import 'package:new_qc/Journal/Journal/textfield.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Craving/craving_details.dart';
+import 'package:SFM/Craving/cravings_info.dart';
+import 'package:SFM/Craving/cravings_slider.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Get_X_Controller/cravings_controller.dart';
+import 'package:SFM/Journal/Journal/textfield.dart';
 
 import 'package:velocity_x/velocity_x.dart';
 

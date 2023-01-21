@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Get_X_Controller/MissionController.dart';
-import 'package:new_qc/Journal/Journal/textfield.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Get_X_Controller/MissionController.dart';
+import 'package:SFM/Journal/Journal/textfield.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MissionView extends StatelessWidget {

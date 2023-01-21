@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/Dashboard/Achievements.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness.dart';
-import 'package:new_qc/Dashboard/HealthImprovement.dart';
-import 'package:new_qc/Dashboard/MoneySaved.dart';
-import 'package:new_qc/Dashboard/SmokeFreeTime.dart';
-import 'package:new_qc/DataCollection/Login.dart';
-import 'package:new_qc/Get_X_Controller/API_Controller.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/Dashboard/Achievements.dart';
+import 'package:SFM/Dashboard/GuidedMeditation.dart';
+import 'package:SFM/Dashboard/HealthAndWellness.dart';
+import 'package:SFM/Dashboard/HealthImprovement.dart';
+import 'package:SFM/Dashboard/MoneySaved.dart';
+import 'package:SFM/Dashboard/SmokeFreeTime.dart';
+import 'package:SFM/DataCollection/Login.dart';
+import 'package:SFM/Get_X_Controller/API_Controller.dart';
 
-import 'package:new_qc/Get_X_Controller/HealthImprovementController.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Get_X_Controller/HealthImprovementController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 
 class Dashboard extends StatefulWidget {
   @override
@@ -30,7 +30,8 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // apiController.backupAction();
+    apiController.backupAction();
+
     ///ToDO with out API
     userStatus.readSessionData();
 

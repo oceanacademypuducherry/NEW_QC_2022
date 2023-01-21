@@ -4,19 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/CommonWidgets/BackButton.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Craving/Craving.dart';
-import 'package:new_qc/Dashboard/Dashboard.dart';
-import 'package:new_qc/Dashboard/HealthImprovement.dart';
-import 'package:new_qc/DataCollection/Login.dart';
-import 'package:new_qc/Get_X_Controller/BottomNavController.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/CommonWidgets/BackButton.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Craving/Craving.dart';
+import 'package:SFM/Dashboard/Dashboard.dart';
+import 'package:SFM/Dashboard/HealthImprovement.dart';
+import 'package:SFM/DataCollection/Login.dart';
+import 'package:SFM/Get_X_Controller/BottomNavController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 
-import 'package:new_qc/Journal/Journal/journal.dart';
-import 'package:new_qc/Mission/Mission.dart';
-import 'package:new_qc/More/More.dart';
-import 'package:new_qc/practice/particuls.dart';
+import 'package:SFM/Journal/Journal/journal.dart';
+import 'package:SFM/Mission/Mission.dart';
+import 'package:SFM/More/More.dart';
+import 'package:SFM/practice/particuls.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BackgroundContainer extends StatelessWidget {
@@ -66,8 +66,8 @@ class BackgroundContainer extends StatelessWidget {
     return Stack(
       children: [
         Container(
-            height: double.infinity,
-            width: double.infinity,
+            height: context.screenHeight,
+            width: context.screenWidth,
             child: bg ??
                 Image.asset(
                   'assets/images/bg.png',

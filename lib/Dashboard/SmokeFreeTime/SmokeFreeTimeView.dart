@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackButton.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/CommonWidgets/BackButton.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 import 'package:rive/rive.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -40,7 +40,7 @@ class _SmokeFreeTimeViewState extends State<SmokeFreeTimeView> {
       // SMIInput<double>? inputs = controller.findInput<double>("day");
       inputs = controller.findInput<double>("day");
       setState(() {
-        inputs!.value = userstatus.smokeFreeTime['minutes'] / 1 ?? 1;
+        inputs!.value = 0.0 + userstatus.totalSmokeFreeTime['days']! / 1 ?? 1;
         updateValue();
       });
     }
@@ -53,7 +53,7 @@ class _SmokeFreeTimeViewState extends State<SmokeFreeTimeView> {
         print('dashboard disposed');
       } else {
         setState(() {
-          inputs!.value = 3.0 + (userstatus.smokeFreeTime['minutes'] / 1 ?? 1);
+          inputs!.value = 0.0 + (userstatus.totalSmokeFreeTime['days'] ?? 1);
         });
       }
     });
@@ -83,7 +83,6 @@ class _SmokeFreeTimeViewState extends State<SmokeFreeTimeView> {
             color: QCDashColor.odd,
           ),
           Positioned(
-              // right: context.screenWidth / 2,
               child: artboard != null
                   ? Container(
                       height: context.screenHeight,
@@ -121,24 +120,33 @@ class _SmokeFreeTimeViewState extends State<SmokeFreeTimeView> {
     ));
   }
 
-  Container timing(BuildContext context, {time}) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-      width: context.screenWidth / 2,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            "$time",
-            style: const TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w500, color: Colors.teal),
-          ),
-          Text(
-            userstatus.smokeFreeTime["$time"].toString(),
-            style: const TextStyle(
-                fontSize: 30, fontWeight: FontWeight.w500, color: Colors.teal),
-          )
-        ],
+  Visibility timing(BuildContext context, {time}) {
+    bool isStarted = userstatus.smokeFreeTime['isStarted'] != 0;
+    print('^^^^^^^^^${isStarted}');
+    return Visibility(
+      visible: isStarted,
+      child: Container(
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        width: context.screenWidth / 2,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "$time",
+              style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.teal),
+            ),
+            Text(
+              userstatus.smokeFreeTime["$time"].toString(),
+              style: const TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.teal),
+            )
+          ],
+        ),
       ),
     );
   }

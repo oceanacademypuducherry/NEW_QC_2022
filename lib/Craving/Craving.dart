@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Craving/add_cravings.dart';
-import 'package:new_qc/Craving/cravings_chart.dart';
-import 'package:new_qc/Get_X_Controller/cravings_controller.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Craving/add_cravings.dart';
+import 'package:SFM/Craving/cravings_chart.dart';
+import 'package:SFM/Get_X_Controller/cravings_controller.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:velocity_x/velocity_x.dart';
 

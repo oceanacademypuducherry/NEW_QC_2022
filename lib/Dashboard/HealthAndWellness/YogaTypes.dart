@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/YogaView.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/YogaView.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class YogaTypes extends StatelessWidget {

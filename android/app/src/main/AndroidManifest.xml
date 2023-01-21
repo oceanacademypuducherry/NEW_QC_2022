@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.new_qc">
+    package="com.example.SFM">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="new_qc"
+        android:label="SFM"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

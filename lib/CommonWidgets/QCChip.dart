@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
 
 class QCChip extends StatefulWidget {
   QCChip({Key? key, this.label = "Label"}) : super(key: key);

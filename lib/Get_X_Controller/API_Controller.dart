@@ -1,7 +1,10 @@
+import 'package:SFM/Get_X_Controller/MissionController.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:velocity_x/velocity_x.dart';
+
+MissionController _missionController = Get.find<MissionController>();
 
 class APIController extends GetxController {
   GetStorage storage = GetStorage();
@@ -12,10 +15,12 @@ class APIController extends GetxController {
 
   /// Login user
 
-  signUp({email, password, uname}) async {
+  String apiUrl =
+      "https://us-central1-quit-smoking-ffce6.cloudfunctions.net/app";
+
+  Future<bool> signUp({email, password, uname}) async {
     try {
-      var response =
-          await Dio().post('https://qc-sfm.herokuapp.com/user/signup', data: {
+      var response = await Dio().post('$apiUrl/user/signup', data: {
         "email": email.toString(),
         "username": uname.toString(),
         "password": password.toString()
@@ -36,6 +41,7 @@ class APIController extends GetxController {
       await storage.write("isPending", true);
 
       print("================Success==================");
+      return true;
     } catch (e) {
       print("================ERROR==================");
       print(e);
@@ -45,14 +51,15 @@ class APIController extends GetxController {
         isDismissible: true,
       );
       print("================ERROR==================");
+      return false;
     }
   }
 
-  login({email, password}) async {
+  Future<bool> login({email, password}) async {
     try {
-      var res = await Dio().post('https://qc-sfm.herokuapp.com/user/login',
+      var res = await Dio().post('$apiUrl/user/login',
           data: {'email': email, 'password': password});
-      print("================Success==================");
+      print("============login====Success==================");
       dynamic data = res.data;
       userInfo(data);
       userEmail(data['email']);
@@ -60,42 +67,48 @@ class APIController extends GetxController {
 
       storage.write('userData', data);
       storage.write("isLogged", true);
-
-      print("================Success==================");
+      print(data);
+      _missionController.loadMissionData();
+      _missionController.checkDay();
+      print("===========login=====Success==================");
+      return true;
     } catch (e) {
       print("================ERROR==================");
-      print(e);
+      print(e.toString());
+
       Get.snackbar(
         'Error',
-        "something went wrong or Make sure your internet connection",
+        "Something went wrong Please try again later",
         isDismissible: true,
       );
       print("================ERROR==================");
+      return false;
     }
   }
 
   addDatacollection({Map data = const {}}) async {
     try {
-      ///todo  fix api issue then un command it
-      // print('==========');
-      // Map userData = await storage.read('userData');
-      //
-      // var res = await Dio().post(
-      //     'https://qc-sfm.herokuapp.com/user/set/data_collection',
-      //     data: {"email": userData['email'], "data": data});
-      // print("================Success==================");
-      // Map resData = res.data;
-      // print(resData);
-      //
+      print('==========');
+      Map userData = await storage.read('userData');
+
+      var res = await Dio().post('$apiUrl/user/set/data_collection',
+          data: {"email": userData['email'], "data": data});
+      print("================Success==================");
+      Map resData = res.data;
+      print(resData);
+
       print('----------------------------||||||||||||||||||||');
-      // await storage.write('userData', resData);
+      await storage.write('userData', resData);
+
       ///todo  fix api issue then un command it
-      await storage.write('userData', data);
+      // await storage.write('userData', data);
       await storage.write("isLogged", true);
       await storage.write("isPending", false);
 
       final testDat = await storage.read('userData');
       print('=====$testDat=====');
+      _missionController.loadMissionData();
+      _missionController.checkDay();
       print("================Success==================");
     } catch (e) {
       print("================ERROR==================");
@@ -130,7 +143,7 @@ class APIController extends GetxController {
     try {
       print(userData['email']);
       if (userData != null) {
-        await Dio().post('https://qc-sfm.herokuapp.com/user/set/backup',
+        await Dio().post('$apiUrl/user/set/backup',
             data: {"email": userData['email'], "data": userData});
 
         print('backup Completed.....');

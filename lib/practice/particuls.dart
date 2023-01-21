@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
 import 'package:rive/rive.dart';
 import 'package:confetti/confetti.dart';
 

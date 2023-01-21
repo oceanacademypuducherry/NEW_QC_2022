@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Dashboard/HealthImprovementCollection/HealthImprovementBigCard.dart';
-import 'package:new_qc/Dashboard/HealthImprovementCollection/HealthImprovementCards.dart';
-import 'package:new_qc/Dashboard/HealthImprovementCollection/HealthImprovementView.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Dashboard/HealthImprovementCollection/HealthImprovementBigCard.dart';
+import 'package:SFM/Dashboard/HealthImprovementCollection/HealthImprovementCards.dart';
+import 'package:SFM/Dashboard/HealthImprovementCollection/HealthImprovementView.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 import 'package:rive/rive.dart';
 import 'package:velocity_x/velocity_x.dart';
 

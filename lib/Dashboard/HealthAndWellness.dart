@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/Affirmation.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/AffirmationCards.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/BreathCards.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/WisdomView.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/YogaTypes.dart';
+import 'package:SFM/CommonWidgets/DashboardWidgets/DashboardTitle.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/Affirmation.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/AffirmationCards.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/BreathCards.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/WisdomView.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/YogaTypes.dart';
 
 class HealthAndWellness extends StatelessWidget {
   const HealthAndWellness({Key? key}) : super(key: key);

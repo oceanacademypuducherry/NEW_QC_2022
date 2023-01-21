@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/BreathPlayer.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/BreathPlayer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class BreathCards extends StatelessWidget {

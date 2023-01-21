@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/DataCollectionTitle.dart';
-import 'package:new_qc/CommonWidgets/NextButton.dart';
-import 'package:new_qc/CommonWidgets/QCChip.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Dashboard/Dashboard.dart';
-import 'package:new_qc/Get_X_Controller/API_Controller.dart';
-import 'package:new_qc/Get_X_Controller/BottomNavController.dart';
-import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
-import 'package:new_qc/Get_X_Controller/HealthImprovementController.dart';
-import 'package:new_qc/Get_X_Controller/JournalController.dart';
-import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
-import 'package:new_qc/Get_X_Controller/MissionController.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
-import 'package:new_qc/Get_X_Controller/cravings_controller.dart';
-import 'package:new_qc/main.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/DataCollectionTitle.dart';
+import 'package:SFM/CommonWidgets/NextButton.dart';
+import 'package:SFM/CommonWidgets/QCChip.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Dashboard/Dashboard.dart';
+import 'package:SFM/Get_X_Controller/API_Controller.dart';
+import 'package:SFM/Get_X_Controller/BottomNavController.dart';
+import 'package:SFM/Get_X_Controller/DataCollectionController.dart';
+import 'package:SFM/Get_X_Controller/HealthImprovementController.dart';
+import 'package:SFM/Get_X_Controller/JournalController.dart';
+import 'package:SFM/Get_X_Controller/Loading_contoller.dart';
+import 'package:SFM/Get_X_Controller/MissionController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Get_X_Controller/cravings_controller.dart';
+import 'package:SFM/main.dart';
 
 class ReasonQuit extends StatelessWidget {
   ReasonQuit({Key? key}) : super(key: key);

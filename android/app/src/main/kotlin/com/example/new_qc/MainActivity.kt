@@ -1,4 +1,4 @@
-package com.example.new_qc
+package com.example.SFM
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class YogaView extends StatelessWidget {

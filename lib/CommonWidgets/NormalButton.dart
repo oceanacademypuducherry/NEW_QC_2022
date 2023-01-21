@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
 
 class NormalButton extends StatelessWidget {
   NormalButton({Key? key, @required this.onPressed, this.buttonName = "Button"})

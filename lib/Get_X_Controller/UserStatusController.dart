@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
+import 'package:SFM/Get_X_Controller/DataCollectionController.dart';
 
 // DataCollectionController dataCollectionController =
 //     Get.find<DataCollectionController>();
@@ -100,6 +100,7 @@ class UserStatusController extends GetxController {
       List dateList = data["quiteDate"] ?? [DateTime.now().toString()];
       print(dateList);
       print('read sesion------------------------------');
+
       startTimer(dateList[dateList.length - 1]);
       userData(data);
     }

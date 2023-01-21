@@ -1,5 +1,5 @@
 const List<String> cravingsAffirmation = [
-  'I can do anything I decide to do.',
-  'I love being in control of my life.',
-  'I am strong enough to handle the challenge of breaking this habit.'
+  'having a positive and inspiring impact on the people I come into contact with.',
+  'getting better and better every day.',
+  'grateful for everything I have in my life.'
 ];

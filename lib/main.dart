@@ -1,20 +1,21 @@
+import 'package:SFM/Get_X_Controller/BottomNavController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:new_qc/Dashboard/Dashboard.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/BreathCards.dart';
-import 'package:new_qc/DataCollection/Login.dart';
-import 'package:new_qc/DataCollection/QuitDate.dart';
-import 'package:new_qc/Get_X_Controller/API_Controller.dart';
-import 'package:new_qc/Get_X_Controller/BottomNavController.dart';
-import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
-import 'package:new_qc/Get_X_Controller/HealthImprovementController.dart';
-import 'package:new_qc/Get_X_Controller/JournalController.dart';
-import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
-import 'package:new_qc/Get_X_Controller/MissionController.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
-import 'package:new_qc/Get_X_Controller/cravings_controller.dart';
-import 'package:new_qc/practice/particuls.dart';
+import 'package:SFM/Dashboard/Dashboard.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/BreathCards.dart';
+import 'package:SFM/DataCollection/Login.dart';
+import 'package:SFM/DataCollection/QuitDate.dart';
+import 'package:SFM/Get_X_Controller/API_Controller.dart';
+import 'package:SFM/Get_X_Controller/BottomNavController.dart';
+import 'package:SFM/Get_X_Controller/DataCollectionController.dart';
+import 'package:SFM/Get_X_Controller/HealthImprovementController.dart';
+import 'package:SFM/Get_X_Controller/JournalController.dart';
+import 'package:SFM/Get_X_Controller/Loading_contoller.dart';
+import 'package:SFM/Get_X_Controller/MissionController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Get_X_Controller/cravings_controller.dart';
+import 'package:SFM/practice/particuls.dart';
 
 void main() async {
   await GetStorage.init();
@@ -51,7 +52,7 @@ class MainRun extends StatelessWidget {
                 ? isPending
                     ? QuitDatePicker()
                     : Dashboard()
-                : QuitDatePicker() //Login()
-            : QuitDatePicker()); //Login());
+                : Login()
+            : Login());
   }
 }

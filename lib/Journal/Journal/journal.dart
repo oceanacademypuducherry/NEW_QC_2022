@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Journal/Journal/SeeAllJournal.dart';
-import 'package:new_qc/Journal/Journal/journal_form_widget.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Journal/Journal/SeeAllJournal.dart';
+import 'package:SFM/Journal/Journal/journal_form_widget.dart';
 
 class Journal extends StatefulWidget {
   Journal({Key? key}) : super(key: key);

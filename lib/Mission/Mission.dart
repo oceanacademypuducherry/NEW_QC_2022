@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
-import 'package:new_qc/Get_X_Controller/MissionController.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
-import 'package:new_qc/Mission/MissionView.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/Get_X_Controller/DataCollectionController.dart';
+import 'package:SFM/Get_X_Controller/MissionController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Mission/MissionView.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class Missions extends StatelessWidget {
@@ -16,6 +16,10 @@ class Missions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('mis data');
+    print(_missionController.missionData);
+    print('mis data');
+
     return Scaffold(
       body: BackgroundContainer(
         isDashboard: true,
@@ -25,20 +29,22 @@ class Missions extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(height: 80),
-                  if (_missionController.missionDay.value <= 0)
-                    const SizedBox(
-                      height: 50,
-                      child: Center(
-                        child: Text("your mission will start Tomorrow"),
-                      ),
-                    ),
+                  // if (_missionController.missionDay.value <= 0)
+                  //   const SizedBox(
+                  //     height: 50,
+                  //     child: Center(
+                  //       child: Text("your mission will start Tomorrow"),
+                  //     ),
+                  //   ),
                   ...List.generate(_missionController.missionData.length,
                       (index) {
                     final data = _missionController.missionData;
+                    print(data);
+
                     return MissionTail(
                       missionData: data[index],
                       missionIndex: index + 1,
-                      currentDayCount: _missionController.missionDay.value,
+                      currentDayCount: _missionController.missionDay.value + 1,
                     );
                   }),
                   SizedBox(height: 80),
@@ -127,9 +133,10 @@ class MissionTail extends StatelessWidget {
               ),
             ),
             onTap: () async {
-              print(missionData);
+              print(missionData!['openDay']);
               print(currentDayCount);
               if (missionData!['openDay'] > currentDayCount) {
+                ///TODO remove false for Day start
                 Get.snackbar(
                   'Mission Locked',
                   "Mission Unlocked soon",

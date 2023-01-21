@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/Affirmation.dart';
-import 'package:new_qc/Dashboard/HealthAndWellness/affirmation_data.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/Affirmation.dart';
+import 'package:SFM/Dashboard/HealthAndWellness/affirmation_data.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class AffirmationCards extends StatelessWidget {

@@ -5,8 +5,8 @@ import 'package:flutter/animation.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:new_qc/Dashboard/Dashboard.dart';
-import 'package:new_qc/DataCollection/QuitDate.dart';
+import 'package:SFM/Dashboard/Dashboard.dart';
+import 'package:SFM/DataCollection/QuitDate.dart';
 
 class DataCollectionController extends GetxController {
   GetStorage storage = GetStorage();

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:new_qc/Get_X_Controller/UserStatusController.dart';
+import 'package:SFM/Get_X_Controller/UserStatusController.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class SmokeTimer extends StatelessWidget {
@@ -11,6 +11,7 @@ class SmokeTimer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 70,
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         color: Colors.black.withOpacity(0.6),
@@ -19,7 +20,8 @@ class SmokeTimer extends StatelessWidget {
       width: MediaQuery.of(context).size.width / 1.3,
       child: Obx(() {
         if (timerData.smokeFreeTime['isStarted'] == 0) {
-          String quitDate = timerData.userData['quiteDate'];
+          List quitDate = timerData.userData['quiteDate'];
+          String date = quitDate[quitDate.length - 1];
           return Column(
             children: [
               const Text('Your Journey will start at')
@@ -27,7 +29,7 @@ class SmokeTimer extends StatelessWidget {
                   .white
                   .size(15)
                   .make(),
-              Text(quitDate).text.white.size(20).make(),
+              Text(date).text.white.size(20).make(),
             ],
           );
         } else {

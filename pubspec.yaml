@@ -1,4 +1,4 @@
-name: new_qc
+name: SFM
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -55,6 +55,9 @@ dependencies:
   connectivity_plus: ^3.0.2
   internet_connection_checker: ^1.0.0+1
   numberpicker: ^2.1.1
+  blur: ^3.1.0
+
+
 
 
 
@@ -96,6 +99,8 @@ flutter:
     - assets/images/mission/
     - assets/images/badges/
     - assets/images/affirmation/
+    - assets/images/achievement/
+    - assets/images/wisdom/
     - assets/Rive/
     - assets/Rive/breath_animation/
   #   - images/a_dot_ham.jpeg

@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart';
-import 'package:new_qc/CommonWidgets/BackButton.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/Dashboard/GuidedMeditation/MisicView.dart';
+import 'package:SFM/CommonWidgets/BackButton.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/Dashboard/GuidedMeditation/MisicView.dart';
 import 'package:pausable_timer/pausable_timer.dart';
 import 'package:velocity_x/velocity_x.dart';
 

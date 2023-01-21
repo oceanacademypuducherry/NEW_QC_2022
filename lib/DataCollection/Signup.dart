@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:new_qc/CommonWidgets/BackgroundContainer.dart';
-import 'package:new_qc/CommonWidgets/NextButton.dart';
-import 'package:new_qc/CommonWidgets/NormalButton.dart';
-import 'package:new_qc/CommonWidgets/QC_Colors.dart';
-import 'package:new_qc/CommonWidgets/TextInput.dart';
-import 'package:new_qc/DataCollection/Login.dart';
-import 'package:new_qc/DataCollection/QuitDate.dart';
-import 'package:new_qc/Get_X_Controller/API_Controller.dart';
-import 'package:new_qc/Get_X_Controller/DataCollectionController.dart';
-import 'package:new_qc/Get_X_Controller/Loading_contoller.dart';
+import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
+import 'package:SFM/CommonWidgets/NextButton.dart';
+import 'package:SFM/CommonWidgets/NormalButton.dart';
+import 'package:SFM/CommonWidgets/QC_Colors.dart';
+import 'package:SFM/CommonWidgets/TextInput.dart';
+import 'package:SFM/DataCollection/Login.dart';
+import 'package:SFM/DataCollection/QuitDate.dart';
+import 'package:SFM/Get_X_Controller/API_Controller.dart';
+import 'package:SFM/Get_X_Controller/DataCollectionController.dart';
+import 'package:SFM/Get_X_Controller/Loading_contoller.dart';
 
 class Signup extends StatefulWidget {
   Signup({Key? key}) : super(key: key);
@@ -154,14 +154,21 @@ class _SignupState extends State<Signup> {
                                               .overlayLoading();
                                       Overlay.of(context)!.insert(loading);
 
-                                      await apiController.signUp(
-                                          email: _emailController.text,
-                                          password: _passwordController.text,
-                                          uname: _usernameController.text);
-                                      loading.remove();
-                                      Get.to(() => QuitDatePicker(),
-                                          transition: Transition.rightToLeft,
-                                          curve: Curves.easeInOut);
+                                      bool isSigned =
+                                          await apiController.signUp(
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                              uname: _usernameController.text);
+
+                                      if (isSigned) {
+                                        loading.remove();
+                                        Get.to(() => QuitDatePicker(),
+                                            transition: Transition.rightToLeft,
+                                            curve: Curves.easeInOut);
+                                      } else {
+                                        loading.remove();
+                                      }
                                     } else {
                                       print("signup else working");
                                       checkInternetConnection();
