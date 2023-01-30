@@ -9,7 +9,7 @@ class MissionController extends GetxController {
     dynamic userData = await storage.read('userData');
 
     print('load missions========>');
-    print(userData);
+    print('no prints------------------');
     print('load missions========>');
     if (userData != null) {
       missionData(userData['missions'] ?? []);
@@ -51,33 +51,3 @@ class MissionController extends GetxController {
     checkDay();
   }
 }
-
-List<Map> missionDataList = [
-  {
-    "openDay": 1,
-    "isComplete": false,
-    "missionVector": "assets/images/mission/plant.svg",
-    "title": "Plant a Tree Today",
-    "description":
-        "To plant trees is to give body and life to one's dreams of a better world.",
-    "comments": "",
-  },
-  {
-    "openDay": 2,
-    "isComplete": false,
-    "missionVector": "assets/images/mission/plant.svg",
-    "title": "Plant a Tree Today",
-    "description":
-        "To plant trees is to give body and life to one's dreams of a better world.",
-    "comments": "",
-  },
-  {
-    "openDay": 3,
-    "isComplete": false,
-    "missionVector": "assets/images/mission/plant.svg",
-    "title": "Plant a Tree Today",
-    "description":
-        "To plant trees is to give body and life to one's dreams of a better world.",
-    "comments": "",
-  }
-];

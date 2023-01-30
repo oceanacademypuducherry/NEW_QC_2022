@@ -1,3 +1,4 @@
+import 'package:SFM/Get_X_Controller/AchievementController.dart';
 import 'package:SFM/Get_X_Controller/BottomNavController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,8 @@ void main() async {
   Get.put(CravingsController());
   Get.put(MissionController());
   Get.put(LoadingController());
+  Get.put(AchievementController());
+
   runApp(
     MainRun(),
   );

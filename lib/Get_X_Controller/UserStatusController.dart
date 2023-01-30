@@ -13,7 +13,7 @@ class UserStatusController extends GetxController {
   final timer = true.obs;
   final userData = {}.obs;
   final smokeFreeTime = {}.obs;
-  final totalSmokeFreeTime = {
+  final totalSmokeFreeTime = <String, int>{
     'years': 0,
     'months': 0,
     'days': 0,
@@ -280,7 +280,7 @@ class UserStatusController extends GetxController {
 
   //ToDO:money saved
 
-  num moneyViewer({type: 1}) {
+  num moneyViewer({type = 1}) {
     Map mc = userData['cigaretteInfo'];
 
     num savedMoney =

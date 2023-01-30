@@ -1,3 +1,4 @@
+import 'package:SFM/Get_X_Controller/AchievementController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:SFM/CommonWidgets/BackgroundContainer.dart';
@@ -9,6 +10,9 @@ import 'dart:ui';
 class MoneySavedInfo extends StatelessWidget {
   MoneySavedInfo({Key? key}) : super(key: key);
 
+  AchievementController achievementController =
+      Get.find<AchievementController>();
+  UserStatusController userStatus = Get.find<UserStatusController>();
   @override
   Widget build(BuildContext context) {
     Size s = context.screenSize;
@@ -32,13 +36,17 @@ class MoneySavedInfo extends StatelessWidget {
                 .size(s.width / 14)
                 .make(),
             const SizedBox(height: 10),
-            "₹7500"
-                .text
-                .fontFamily('Ubuntu')
-                .color(textColor)
-                .size(s.width / 10)
-                .bold
-                .make(),
+            Obx(() {
+              double totalAmount = achievementController.dayOfCost *
+                  userStatus.totalSmokeFreeTime['days']!;
+              return "₹$totalAmount"
+                  .text
+                  .fontFamily('Ubuntu')
+                  .color(textColor)
+                  .size(s.width / 10)
+                  .bold
+                  .make();
+            }),
           ],
         ),
       ),

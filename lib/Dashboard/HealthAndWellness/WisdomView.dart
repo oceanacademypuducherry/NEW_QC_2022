@@ -99,10 +99,10 @@ class _WisdomViewState extends State<WisdomView> {
                   .make(),
             ],
           ),
-          TextButton(
-            child: const Text('Set Wallpaper'),
-            onPressed: () async {},
-          )
+          // TextButton(
+          //   child: const Text('Set Wallpaper'),
+          //   onPressed: () async {},
+          // )
         ],
       ),
     );
